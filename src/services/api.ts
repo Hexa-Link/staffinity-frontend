@@ -13,6 +13,27 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
+// Vacancy interfaces
+export interface Vacancy {
+  id?: number;
+  title: string;
+  description: string;
+  requirements: string;
+  location: string;
+  salary?: number;
+  status?: 'OPEN' | 'CLOSED' | 'PAUSED';
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateVacancyDTO {
+  title: string;
+  description: string;
+  requirements: string;
+  location: string;
+  salary?: number;
+}
+
 /**
  * Check Personal API health
  */
@@ -78,4 +99,85 @@ export async function checkAllApisHealth(): Promise<{
   ]);
 
   return { personal, recruiting };
+}
+
+// ==================== VACANCIES API ====================
+
+/**
+ * Get all vacancies from Recruiting API
+ */
+export async function getVacancies(): Promise<ApiResponse<Vacancy[]>> {
+  try {
+    const response = await fetch(`${RECRUITING_API_URL}/vacancies`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Create a new vacancy
+ */
+export async function createVacancy(vacancy: CreateVacancyDTO): Promise<ApiResponse<Vacancy>> {
+  try {
+    const response = await fetch(`${RECRUITING_API_URL}/vacancies`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(vacancy),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Get a single vacancy by ID
+ */
+export async function getVacancyById(id: number): Promise<ApiResponse<Vacancy>> {
+  try {
+    const response = await fetch(`${RECRUITING_API_URL}/vacancies/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
 }
