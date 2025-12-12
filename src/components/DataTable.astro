@@ -1,0 +1,95 @@
+---
+// Componente de tabla genérica
+interface Column {
+  key: string;
+  label: string;
+  sortable?: boolean;
+}
+
+interface Props {
+  title: string;
+  columns: Column[];
+  rows: any[];
+  actions?: {
+    label: string;
+    href?: string;
+  }[];
+}
+
+const { title, columns, rows, actions } = Astro.props;
+---
+
+<div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] overflow-hidden">
+  
+  <!-- Header -->
+  <div class="px-6 py-4 border-b-2 border-[#c7dfdf] bg-[#eef6f6]">
+    <h3 class="font-bold text-lg text-[#0b0b0b]">{title}</h3>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="bg-[#eef6f6] border-b-2 border-[#c7dfdf]">
+          {columns.map((col) => (
+            <th 
+              class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b] cursor-pointer hover:bg-[#cbdcdd] transition-colors"
+            >
+              <div class="flex items-center space-x-2">
+                <span>{col.label}</span>
+                {col.sortable && <span class="text-xs">↕️</span>}
+              </div>
+            </th>
+          ))}
+          {actions && <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Acciones</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.length === 0 ? (
+          <tr>
+            <td colspan={columns.length + (actions ? 1 : 0)} class="px-6 py-8 text-center text-[#6b7c7c]">
+              No hay datos disponibles
+            </td>
+          </tr>
+        ) : (
+          rows.map((row, idx) => (
+            <tr class="border-b border-[#c7dfdf] hover:bg-[#eef6f6] transition-colors">
+              {columns.map((col) => (
+                <td class="px-6 py-4 text-sm text-[#0b0b0b]">
+                  {row[col.key]}
+                </td>
+              ))}
+              {actions && (
+                <td class="px-6 py-4 text-sm space-x-2 flex">
+                  {actions.map((action) => (
+                    <a
+                      href={action.href || '#'}
+                      class="text-[#0f615f] hover:text-[#2d7a79] font-medium text-xs px-3 py-2 bg-[#eef6f6] rounded hover:bg-[#cbdcdd] transition-all"
+                    >
+                      {action.label}
+                    </a>
+                  ))}
+                </td>
+              )}
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="px-6 py-4 bg-[#eef6f6] border-t-2 border-[#c7dfdf] flex justify-between items-center">
+    <p class="text-sm text-[#6b7c7c]">
+      Total: <strong>{rows.length}</strong> registros
+    </p>
+    <div class="flex space-x-2">
+      <button class="px-3 py-2 text-sm border-2 border-[#c7dfdf] rounded hover:bg-[#cbdcdd] transition-all">
+        ← Anterior
+      </button>
+      <button class="px-3 py-2 text-sm border-2 border-[#c7dfdf] rounded hover:bg-[#cbdcdd] transition-all">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>

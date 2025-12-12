@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LoginForm from '../components/LoginForm.astro';
+---
+
+<BaseLayout title="Iniciar Sesión - Hexa-Link ERP">
+  <div class="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-[#cbdcdd] via-[#eef6f6] to-[#cbdcdd]">
+    <div class="w-full max-w-md">
+      
+      <!-- Logo y Título -->
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center space-x-3 mb-6">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#0f615f] to-[#2d7a79] flex items-center justify-center text-white font-bold text-xl">
+            HL
+          </div>
+          <span class="font-bold text-2xl text-[#0f615f]">Hexa-Link</span>
+        </div>
+        <h1 class="text-3xl font-bold text-[#0b0b0b] mb-2">
+          Bienvenido
+        </h1>
+        <p class="text-[#6b7c7c]">
+          Accede a tu sistema ERP
+        </p>
+      </div>
+
+      <!-- Card de Login -->
+      <div class="bg-white rounded-[14px] border-2 border-[#c7dfdf] shadow-[0_10px_18px_rgba(12,43,43,0.06)] p-8">
+        <LoginForm />
+      </div>
+
+      <!-- Footer de seguridad -->
+      <div class="mt-8 text-center text-xs text-[#6b7c7c] space-y-2">
+        <p>🔒 Conexión segura con cifrado SSL</p>
+        <p>
+          © 2025 Hexa-Link. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    :global(body) {
+      background: linear-gradient(135deg, #cbdcdd 0%, #eef6f6 50%, #cbdcdd 100%);
+      min-height: 100vh;
+    }
+  </style>
+</BaseLayout>

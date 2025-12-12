@@ -1,0 +1,142 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import DataTable from '../components/DataTable.astro';
+
+// Datos simulados de vacantes
+const vacancies = [
+  { id: 'V001', title: 'Frontend Developer Senior', department: 'Ingeniería', applicants: '12', salary: '$4,000-$5,000', posted: '2 semanas', status: 'Abierta' },
+  { id: 'V002', title: 'Product Manager', department: 'Producto', applicants: '8', salary: '$4,000-$5,500', posted: '1 semana', status: 'Abierta' },
+  { id: 'V003', title: 'Data Analyst', department: 'Datos', applicants: '5', salary: '$3,000-$4,000', posted: '3 semanas', status: 'En Revisión' },
+  { id: 'V004', title: 'Marketing Manager', department: 'Marketing', applicants: '6', salary: '$3,500-$4,500', posted: '1 día', status: 'Abierta' },
+  { id: 'V005', title: 'UX/UI Designer', department: 'Diseño', applicants: '15', salary: '$3,200-$4,200', posted: '4 días', status: 'Abierta' },
+  { id: 'V006', title: 'Sales Representative', department: 'Ventas', applicants: '22', salary: '$2,500-$3,500', posted: '5 días', status: 'Abierta' },
+];
+
+const columns = [
+  { key: 'title', label: 'Posición', sortable: true },
+  { key: 'department', label: 'Departamento', sortable: true },
+  { key: 'applicants', label: 'Candidatos', sortable: true },
+  { key: 'salary', label: 'Rango Salarial', sortable: true },
+  { key: 'posted', label: 'Publicada', sortable: false },
+  { key: 'status', label: 'Estado', sortable: true },
+];
+---
+
+<DashboardLayout title="Gestión de Vacantes" currentPage="vacancies">
+  
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-[#0b0b0b] mb-2">Vacantes</h2>
+      <p class="text-[#6b7c7c]">Administra posiciones disponibles y candidatos</p>
+    </div>
+    <button class="bg-[#0f615f] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2d7a79] transition-all duration-200">
+      + Nueva Vacante
+    </button>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <p class="text-sm text-[#6b7c7c] font-medium mb-2">Vacantes Abiertas</p>
+      <h3 class="text-3xl font-bold text-[#0b0b0b] mb-2">6</h3>
+      <p class="text-xs text-[#6b7c7c]">Actualmente en búsqueda</p>
+    </div>
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <p class="text-sm text-[#6b7c7c] font-medium mb-2">Total de Candidatos</p>
+      <h3 class="text-3xl font-bold text-[#0b0b0b] mb-2">68</h3>
+      <p class="text-xs text-[#6b7c7c]">Esperando revisión</p>
+    </div>
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <p class="text-sm text-[#6b7c7c] font-medium mb-2">Entrevistas Programadas</p>
+      <h3 class="text-3xl font-bold text-[#0b0b0b] mb-2">8</h3>
+      <p class="text-xs text-[#6b7c7c]">Esta semana</p>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Buscar Vacante</label>
+        <input 
+          type="text" 
+          placeholder="Posición o departamento..." 
+          class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Departamento</label>
+        <select class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]">
+          <option>Todos</option>
+          <option>Ingeniería</option>
+          <option>Producto</option>
+          <option>Datos</option>
+          <option>Marketing</option>
+          <option>Ventas</option>
+          <option>Diseño</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Estado</label>
+        <select class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]">
+          <option>Todos</option>
+          <option>Abierta</option>
+          <option>En Revisión</option>
+          <option>Cerrada</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button class="w-full bg-[#0f615f] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#2d7a79] transition-all">
+          Filtrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vacancies Table -->
+  <DataTable 
+    title={`Total: ${vacancies.length} vacantes`}
+    columns={columns}
+    rows={vacancies}
+    actions={[
+      { label: 'Ver Candidatos' },
+      { label: 'Editar' },
+      { label: 'Cerrar' },
+    ]}
+  />
+
+  <!-- Recent Applicants Section -->
+  <div class="mt-8 bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+    <h3 class="font-bold text-lg text-[#0b0b0b] mb-4">Candidatos Recientes</h3>
+    
+    <div class="space-y-4">
+      {[
+        { name: 'Carlos Mendez', position: 'Frontend Developer Senior', status: 'Entrevista Agendada', date: '2025-12-15' },
+        { name: 'Patricia Rojas', position: 'Product Manager', status: 'En Revisión', date: '2025-12-11' },
+        { name: 'Miguel Torres', position: 'Data Analyst', status: 'Rechazado', date: '2025-12-10' },
+        { name: 'Laura García', position: 'Marketing Manager', status: 'Primer Contacto', date: '2025-12-12' },
+      ].map((applicant) => (
+        <div class="flex items-center justify-between p-4 bg-[#eef6f6] rounded-lg hover:bg-[#cbdcdd] transition-all">
+          <div class="flex items-center space-x-4 flex-1">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0f615f] to-[#2d7a79] flex items-center justify-center text-white font-semibold text-sm">
+              {applicant.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div>
+              <p class="font-semibold text-[#0b0b0b]">{applicant.name}</p>
+              <p class="text-sm text-[#6b7c7c]">{applicant.position}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-medium text-[#0f615f]">{applicant.status}</p>
+            <p class="text-xs text-[#6b7c7c]">{applicant.date}</p>
+          </div>
+          <button class="ml-4 px-4 py-2 bg-white text-[#0f615f] rounded-lg font-medium hover:bg-[#0f615f] hover:text-white transition-all text-sm">
+            Ver
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</DashboardLayout>

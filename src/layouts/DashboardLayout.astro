@@ -1,0 +1,129 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPage?: string;
+}
+
+const { title = 'Dashboard', description = 'Sistema ERP Hexa-Link', currentPage = 'dashboard' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} - Hexa-Link ERP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#cbdcdd] text-[#0b0b0b] flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r-2 border-[#c7dfdf] fixed h-screen overflow-y-auto">
+      
+      <!-- Logo -->
+      <div class="p-6 border-b-2 border-[#c7dfdf]">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0f615f] to-[#2d7a79] flex items-center justify-center text-white font-bold">
+            HL
+          </div>
+          <div>
+            <p class="font-bold text-[#0f615f]">Hexa-Link</p>
+            <p class="text-xs text-[#6b7c7c]">ERP</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-6 space-y-2">
+        <a href="/dashboard" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'dashboard' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          📊 Dashboard
+        </a>
+        <a href="/employees" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'employees' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          👥 Empleados
+        </a>
+        <a href="/inventory" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'inventory' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          📦 Inventario
+        </a>
+        <a href="/vacancies" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'vacancies' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          💼 Vacantes
+        </a>
+        <a href="/reports" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'reports' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          📈 Reportes
+        </a>
+        <a href="/settings" class=`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${currentPage === 'settings' ? 'bg-[#eef6f6] text-[#0f615f] border-l-4 border-[#0f615f]' : 'text-[#6b7c7c] hover:bg-[#eef6f6]'}`>
+          ⚙️ Configuración
+        </a>
+      </nav>
+
+      <!-- Divider -->
+      <div class="mx-6 border-t-2 border-[#c7dfdf]"></div>
+
+      <!-- User Section -->
+      <div class="p-6 space-y-4">
+        <div class="flex items-center space-x-3 p-3 bg-[#eef6f6] rounded-lg">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0f615f] to-[#2d7a79] flex items-center justify-center text-white font-semibold">
+            👤
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-sm truncate">Usuario</p>
+            <p class="text-xs text-[#6b7c7c] truncate">usuario@hexa-link.com</p>
+          </div>
+        </div>
+        <button id="logoutBtn" class="w-full bg-red-50 text-red-600 px-4 py-2 rounded-lg font-medium hover:bg-red-100 transition-all duration-200 text-sm">
+          Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 flex-1">
+      <!-- Top Header -->
+      <header class="bg-white border-b-2 border-[#c7dfdf] sticky top-0 z-40">
+        <div class="px-8 py-4 flex items-center justify-between">
+          <h1 class="text-2xl font-bold text-[#0b0b0b]">{title}</h1>
+          <div class="flex items-center space-x-4">
+            <button class="p-2 hover:bg-[#eef6f6] rounded-lg transition-all duration-200">
+              🔔
+            </button>
+            <button class="p-2 hover:bg-[#eef6f6] rounded-lg transition-all duration-200">
+              ⚙️
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <section class="p-8">
+        <slot />
+      </section>
+    </main>
+  </body>
+</html>
+
+<script>
+  // Verificar autenticación
+  window.addEventListener('load', () => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      window.location.href = '/login';
+    }
+  });
+
+  // Logout
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('remember_me');
+    window.location.href = '/login';
+  });
+</script>
+
+<style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style>

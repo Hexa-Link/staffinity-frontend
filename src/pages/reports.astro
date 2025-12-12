@@ -1,0 +1,155 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+
+// Tipos de reportes disponibles
+const reportCategories = [
+  { name: 'Recursos Humanos', icon: '👥', count: 5 },
+  { name: 'Inventario', icon: '📦', count: 4 },
+  { name: 'Finanzas', icon: '💰', count: 6 },
+  { name: 'Ventas', icon: '📊', count: 4 },
+];
+
+const reports = [
+  { id: 1, name: 'Nómina Mensual', category: 'Recursos Humanos', lastGenerated: '2025-12-10', frequency: 'Mensual', format: 'PDF, Excel' },
+  { id: 2, name: 'Rotación de Empleados', category: 'Recursos Humanos', lastGenerated: '2025-12-05', frequency: 'Trimestral', format: 'PDF' },
+  { id: 3, name: 'Inventario Valorizado', category: 'Inventario', lastGenerated: '2025-12-11', frequency: 'Mensual', format: 'Excel, PDF' },
+  { id: 4, name: 'Productos Bajo Stock', category: 'Inventario', lastGenerated: '2025-12-11', frequency: 'Semanal', format: 'PDF' },
+  { id: 5, name: 'Ingresos vs Gastos', category: 'Finanzas', lastGenerated: '2025-12-10', frequency: 'Mensual', format: 'PDF, Excel' },
+  { id: 6, name: 'Análisis de Rentabilidad', category: 'Finanzas', lastGenerated: '2025-12-08', frequency: 'Trimestral', format: 'PDF' },
+  { id: 7, name: 'Conversiones de Ventas', category: 'Ventas', lastGenerated: '2025-12-11', frequency: 'Semanal', format: 'Dashboard' },
+  { id: 8, name: 'Pipeline de Oportunidades', category: 'Ventas', lastGenerated: '2025-12-10', frequency: 'Diario', format: 'Dashboard, Excel' },
+];
+---
+
+<DashboardLayout title="Reportes y Análisis" currentPage="reports">
+  
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-[#0b0b0b] mb-2">Reportes</h2>
+      <p class="text-[#6b7c7c]">Analiza datos y genera informes personalizados</p>
+    </div>
+    <button class="bg-[#0f615f] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2d7a79] transition-all duration-200">
+      + Nuevo Reporte
+    </button>
+  </div>
+
+  <!-- Report Categories -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    {reportCategories.map((cat) => (
+      <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6 hover:shadow-[0_12px_32px_rgba(12,43,43,0.15)] transition-all cursor-pointer">
+        <div class="text-4xl mb-3">{cat.icon}</div>
+        <h3 class="font-bold text-lg text-[#0b0b0b] mb-1">{cat.name}</h3>
+        <p class="text-2xl font-bold text-[#0f615f]">{cat.count}</p>
+        <p class="text-xs text-[#6b7c7c] mt-1">reportes disponibles</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- Available Reports -->
+  <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] overflow-hidden">
+    
+    <!-- Header -->
+    <div class="px-6 py-4 border-b-2 border-[#c7dfdf] bg-[#eef6f6]">
+      <h3 class="font-bold text-lg text-[#0b0b0b]">Reportes Disponibles</h3>
+    </div>
+
+    <!-- Report List -->
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-[#eef6f6] border-b-2 border-[#c7dfdf]">
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Nombre del Reporte</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Categoría</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Frecuencia</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Formato</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Últ. Generado</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-[#0b0b0b]">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reports.map((report) => (
+            <tr class="border-b border-[#c7dfdf] hover:bg-[#eef6f6] transition-colors">
+              <td class="px-6 py-4 text-sm text-[#0b0b0b] font-medium">{report.name}</td>
+              <td class="px-6 py-4 text-sm text-[#6b7c7c]">{report.category}</td>
+              <td class="px-6 py-4 text-sm">
+                <span class="inline-block px-3 py-1 bg-[#eef6f6] text-[#0f615f] rounded-full text-xs font-medium">
+                  {report.frequency}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-sm text-[#6b7c7c]">{report.format}</td>
+              <td class="px-6 py-4 text-sm text-[#6b7c7c]">{report.lastGenerated}</td>
+              <td class="px-6 py-4 text-sm space-x-2 flex">
+                <button class="text-[#0f615f] hover:text-[#2d7a79] font-medium text-xs px-3 py-2 bg-[#eef6f6] rounded hover:bg-[#cbdcdd] transition-all">
+                  Generar
+                </button>
+                <button class="text-[#0f615f] hover:text-[#2d7a79] font-medium text-xs px-3 py-2 bg-[#eef6f6] rounded hover:bg-[#cbdcdd] transition-all">
+                  Ver
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Dashboard Analytics Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+    
+    <!-- Sales Chart -->
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <h3 class="font-bold text-lg text-[#0b0b0b] mb-4">Ingresos Mensuales</h3>
+      <div class="h-64 flex items-center justify-center bg-[#eef6f6] rounded-lg text-[#6b7c7c]">
+        <div class="text-center">
+          <p class="text-3xl mb-2">📈</p>
+          <p class="font-semibold">Gráfico de Líneas</p>
+          <p class="text-sm text-[#6b7c7c]">Integra Chart.js o Recharts</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employee Distribution -->
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <h3 class="font-bold text-lg text-[#0b0b0b] mb-4">Distribución por Departamento</h3>
+      <div class="h-64 flex items-center justify-center bg-[#eef6f6] rounded-lg text-[#6b7c7c]">
+        <div class="text-center">
+          <p class="text-3xl mb-2">📊</p>
+          <p class="font-semibold">Gráfico de Pastel</p>
+          <p class="text-sm text-[#6b7c7c]">Visualización de datos</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inventory Trends -->
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <h3 class="font-bold text-lg text-[#0b0b0b] mb-4">Tendencia de Inventario</h3>
+      <div class="h-64 flex items-center justify-center bg-[#eef6f6] rounded-lg text-[#6b7c7c]">
+        <div class="text-center">
+          <p class="text-3xl mb-2">📉</p>
+          <p class="font-semibold">Gráfico de Área</p>
+          <p class="text-sm text-[#6b7c7c]">Últimos 12 meses</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+      <h3 class="font-bold text-lg text-[#0b0b0b] mb-4">KPIs Principales</h3>
+      <div class="space-y-3">
+        {[
+          { label: 'Crecimiento Anual', value: '+23.5%', color: 'text-green-600' },
+          { label: 'Margen de Ganancia', value: '42.3%', color: 'text-green-600' },
+          { label: 'Rotación de Empleados', value: '8.2%', color: 'text-yellow-600' },
+          { label: 'Satisfacción del Cliente', value: '4.7/5', color: 'text-green-600' },
+        ].map((kpi) => (
+          <div class="flex justify-between items-center p-3 bg-[#eef6f6] rounded-lg">
+            <p class="text-sm font-medium text-[#0b0b0b]">{kpi.label}</p>
+            <p class={`font-bold text-lg ${kpi.color}`}>{kpi.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</DashboardLayout>

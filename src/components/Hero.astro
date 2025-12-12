@@ -1,0 +1,110 @@
+---
+// Componente Hero
+interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
+}
+
+const {
+  title = 'Gestión Empresarial Moderna',
+  subtitle = 'Sistema ERP Integrado',
+  description = 'Transforma tu organización con nuestra plataforma ERP de última generación, diseñada para maximizar eficiencia y productividad.',
+  primaryCtaLabel = 'Comienza Ahora',
+  secondaryCtaLabel = 'Más Información',
+} = Astro.props;
+---
+
+<section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 bg-gradient-to-br from-[#cbdcdd] via-[#eef6f6] to-[#cbdcdd]">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    
+    <!-- Contenido Izquierdo -->
+    <div class="space-y-6 animate-fadeInLeft">
+      <div class="inline-block">
+        <span class="text-sm font-semibold text-[#0f615f] bg-[#eef6f6] px-4 py-2 rounded-full border-2 border-[#c7dfdf]">
+          {subtitle}
+        </span>
+      </div>
+      
+      <h1 class="text-5xl sm:text-6xl font-bold text-[#0b0b0b] leading-tight">
+        {title}
+      </h1>
+      
+      <p class="text-lg text-[#6b7c7c] leading-relaxed max-w-md">
+        {description}
+      </p>
+      
+      <!-- Botones CTA -->
+      <div class="flex flex-col sm:flex-row gap-4 pt-4">
+        <button class="bg-[#0f615f] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#2d7a79] transition-all duration-200 shadow-[0_10px_18px_rgba(12,43,43,0.1)] hover:shadow-[0_12px_32px_rgba(12,43,43,0.15)]">
+          {primaryCtaLabel}
+        </button>
+        <button class="border-2 border-[#0f615f] text-[#0f615f] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#eef6f6] transition-all duration-200">
+          {secondaryCtaLabel}
+        </button>
+      </div>
+      
+      <!-- Trust indicators -->
+      <div class="pt-6 space-y-3">
+        <p class="text-sm font-semibold text-[#6b7c7c]">CONFÍAN EN NOSOTROS</p>
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-full bg-[#eef6f6] flex items-center justify-center text-lg">🏢</div>
+          <div class="w-12 h-12 rounded-full bg-[#eef6f6] flex items-center justify-center text-lg">🚀</div>
+          <div class="w-12 h-12 rounded-full bg-[#eef6f6] flex items-center justify-center text-lg">⚡</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contenido Derecho - Imagen Placeholder -->
+    <div class="animate-fadeInRight">
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0f615f] to-[#2d7a79] rounded-[20px] transform rotate-3 scale-95 opacity-30"></div>
+        <div class="relative bg-white rounded-[20px] p-8 border-2 border-[#c7dfdf] shadow-[0_12px_32px_rgba(12,43,43,0.15)]">
+          <div class="aspect-square bg-gradient-to-br from-[#eef6f6] to-[#cbdcdd] rounded-[14px] flex items-center justify-center text-6xl">
+            📊
+          </div>
+          <div class="mt-6 space-y-2">
+            <div class="h-4 bg-[#c7dfdf] rounded-full w-3/4"></div>
+            <div class="h-4 bg-[#c7dfdf] rounded-full w-full"></div>
+            <div class="h-4 bg-[#c7dfdf] rounded-full w-2/3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fadeInLeft {
+    animation: fadeInLeft 0.6s ease-out;
+  }
+
+  .animate-fadeInRight {
+    animation: fadeInRight 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+</style>
