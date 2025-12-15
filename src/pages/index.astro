@@ -1,29 +1,1103 @@
 ---
-// Página principal - Home
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Solutions from '../components/Solutions.astro';
-import Vacancies from '../components/Vacancies.astro';
-import Footer from '../components/Footer.astro';
+// Landing Page - HexaLink
 ---
 
-<BaseLayout title="Hexa-Link ERP - Gestión Empresarial Moderna">
-  <Header />
-  <Hero 
-    title="Gestión Empresarial Moderna"
-    subtitle="Sistema ERP Integrado"
-    description="Transforma tu organización con nuestra plataforma ERP de última generación, diseñada para maximizar eficiencia y productividad."
-    primaryCtaLabel="Comienza Ahora"
-    secondaryCtaLabel="Solicita una Demo"
-  />
-  <Solutions />
-  <Vacancies />
-  <Footer />
-</BaseLayout>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HexaLink - Plataforma de Gestión de Capital Humano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-</style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #e6f7f5 0%, #ffffff 100%);
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.03);
+            transition: background 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0d9488;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .dark-mode-toggle {
+            background: #e6f7f5;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #0d9488;
+            transform: scale(1.1);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0d9488;
+        }
+
+        .cta-nav {
+            background: #0d9488;
+            color: white !important;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .cta-nav:hover {
+            background: #0e7490;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #d1fae5 0%, #e6f7f5 50%, #ffffff 100%);
+            padding: 140px 5% 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero-text h1 span {
+            color: #0d9488;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #4a5568;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            background: #0d9488;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #0e7490;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 148, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0d9488;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            border: 2px solid #0d9488;
+        }
+
+        .btn-secondary:hover {
+            background: #e6f7f5;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #718096;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: #f7fefd;
+            border-radius: 20px;
+            border: 1px solid #ccfbf1;
+            transition: all 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.1);
+        }
+
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #99f6e4 0%, #5eead4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        /* Solutions Section */
+        .solutions {
+            background: linear-gradient(135deg, #d1fae5 0%, #ffffff 100%);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .solution-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid #ccfbf1;
+            transition: all 0.3s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(13, 148, 136, 0.15);
+            border-color: #0d9488;
+        }
+
+        .solution-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #99f6e4 0%, #5eead4 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-card h3 {
+            font-size: 1.6rem;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .solution-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .solution-features li {
+            padding: 0.7rem 0;
+            color: #4a5568;
+            border-bottom: 1px solid #e6f7f5;
+        }
+
+        .solution-features li:before {
+            content: '✓';
+            color: #0d9488;
+            font-weight: bold;
+            margin-right: 0.8rem;
+        }
+
+        /* Vacancies Section */
+        .vacancies {
+            background: white;
+        }
+
+        .vacancies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .vacancy-card {
+            background: #f7fefd;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid #ccfbf1;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .vacancy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(13, 148, 136, 0.15);
+            border-color: #0d9488;
+        }
+
+        .vacancy-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #0d9488;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .vacancy-card h3 {
+            font-size: 1.5rem;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            padding-right: 80px;
+        }
+
+        .vacancy-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            margin: 1.5rem 0;
+        }
+
+        .vacancy-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        .vacancy-info-item strong {
+            color: #4a5568;
+        }
+
+        .vacancy-card p {
+            color: #718096;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .vacancy-btn {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #e6f7f5 0%, #ffffff 100%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: #718096;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #99f6e4 0%, #5eead4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .contact-item-text h4 {
+            color: #1a202c;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item-text p {
+            color: #718096;
+            margin: 0;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #e6f7f5;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0d9488;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: #a0aec0;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            color: #0d9488;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #2d3748;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #a0aec0;
+            text-decoration: none;
+            margin-bottom: 0.7rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #0d9488;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #2d3748;
+            color: #718096;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        body.dark-mode .logo,
+        body.dark-mode .nav-links a {
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .nav-links a:hover {
+            color: #0d9488;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: #1e293b;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        body.dark-mode .hero-text h1,
+        body.dark-mode .section-title h2,
+        body.dark-mode .about-card h3,
+        body.dark-mode .solution-card h3,
+        body.dark-mode .vacancy-card h3,
+        body.dark-mode .contact-info h3,
+        body.dark-mode .contact-item-text h4 {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .hero-text p,
+        body.dark-mode .section-title p,
+        body.dark-mode .about-card p,
+        body.dark-mode .vacancy-card p,
+        body.dark-mode .contact-info p,
+        body.dark-mode .contact-item-text p {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .about,
+        body.dark-mode .vacancies {
+            background: #0f172a;
+        }
+
+        body.dark-mode .about-card,
+        body.dark-mode .vacancy-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .about-card:hover,
+        body.dark-mode .vacancy-card:hover {
+            border-color: #0d9488;
+        }
+
+        body.dark-mode .solutions,
+        body.dark-mode .contact {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        body.dark-mode .solution-card,
+        body.dark-mode .contact-form {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .solution-features li,
+        body.dark-mode .vacancy-info-item {
+            color: #cbd5e1;
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: #0f172a;
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .form-group label {
+            color: #cbd5e1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vacancies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .about-grid,
+            .vacancies-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .vacancy-card h3 {
+                padding-right: 0;
+            }
+
+            .vacancy-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">HexaLink</div>
+            <div class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#soluciones">Soluciones</a>
+                <a href="#vacantes">Vacantes</a>
+                <a href="#contacto">Contacto</a>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar modo">
+                    🌙
+                </button>
+                <a href="#vacantes" class="cta-nav">Ver Ofertas</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Plataforma Unificada de <span>Capital Humano</span></h1>
+                <p>Automatiza tus procesos de RRHH y reclutamiento con HexaLink. Una solución moderna basada en microservicios que conecta personal, vacaciones, notificaciones y gestión de vacantes en un solo lugar.</p>
+                <div class="cta-buttons">
+                    <a href="#vacantes" class="btn-primary">Ver Vacantes Abiertas</a>
+                    <a href="#soluciones" class="btn-secondary">Conocer Más</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Equipo HexaLink">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="about">
+        <div class="content-container">
+            <div class="section-title">
+                <h2>Acerca de HexaLink</h2>
+                <p>Transformamos la gestión de capital humano con tecnología de vanguardia</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3>Misión</h3>
+                    <p>Simplificar y automatizar los procesos de gestión de recursos humanos mediante una plataforma integrada que mejora la eficiencia operativa y la experiencia del empleado.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🚀</div>
+                    <h3>Visión</h3>
+                    <p>Ser la plataforma líder en soluciones de capital humano, utilizando arquitecturas modernas de microservicios para ofrecer escalabilidad, flexibilidad y excelencia tecnológica.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">💎</div>
+                    <h3>Valores</h3>
+                    <p>Innovación continua, transparencia en los procesos, eficiencia operativa y compromiso con la excelencia en cada interacción con nuestros usuarios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="soluciones" class="solutions">
+        <div class="content-container">
+            <div class="section-title">
+                <h2>Nuestras Soluciones</h2>
+                <p>Módulos integrados para una gestión completa de tu capital humano</p>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">👥</div>
+                    <h3>Módulo de Personal</h3>
+                    <p>Gestiona todo el ciclo de vida del empleado desde un solo lugar con herramientas potentes y fáciles de usar.</p>
+                    <ul class="solution-features">
+                        <li>Gestión completa de empleados y perfiles</li>
+                        <li>Solicitudes de vacaciones con flujo de aprobación</li>
+                        <li>Sistema de notificaciones en tiempo real</li>
+                        <li>Reportes y analíticas de RRHH</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🎯</div>
+                    <h3>Módulo de Reclutamiento</h3>
+                    <p>Optimiza tu proceso de selección con seguimiento completo de candidatos y vacantes activas.</p>
+                    <ul class="solution-features">
+                        <li>Publicación y gestión de vacantes</li>
+                        <li>Base de datos de candidatos</li>
+                        <li>Seguimiento de entrevistas y evaluaciones</li>
+                        <li>Búsqueda de talento interno</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🔗</div>
+                    <h3>Integración Continua</h3>
+                    <p>Arquitectura de microservicios que permite comunicación fluida entre todos los módulos del sistema.</p>
+                    <ul class="solution-features">
+                        <li>API RESTful escalable y segura</li>
+                        <li>Sincronización automática de datos</li>
+                        <li>Arquitectura hexagonal modular</li>
+                        <li>Despliegue continuo (CI/CD)</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📊</div>
+                    <h3>Reportes y Analíticas</h3>
+                    <p>Toma decisiones basadas en datos con dashboards interactivos y reportes personalizables.</p>
+                    <ul class="solution-features">
+                        <li>KPIs de recursos humanos en tiempo real</li>
+                        <li>Análisis de vacantes y contrataciones</li>
+                        <li>Métricas de solicitudes y aprobaciones</li>
+                        <li>Exportación de datos a múltiples formatos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vacancies Section -->
+    <section id="vacantes" class="vacancies">
+        <div class="content-container">
+            <div class="section-title">
+                <h2>Vacantes Disponibles</h2>
+                <p>Únete a nuestro equipo y construye el futuro de la gestión de capital humano</p>
+            </div>
+            <div class="vacancies-grid">
+                <div class="vacancy-card">
+                    <span class="vacancy-badge">Urgente</span>
+                    <h3>Backend Developer .NET</h3>
+                    <div class="vacancy-info">
+                        <div class="vacancy-info-item">
+                            <span>📍</span>
+                            <span><strong>Ubicación:</strong> Remoto / Barranquilla</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>💼</span>
+                            <span><strong>Tipo:</strong> Tiempo Completo</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>🏢</span>
+                            <span><strong>Departamento:</strong> Engineering</span>
+                        </div>
+                    </div>
+                    <p>Desarrolla microservicios robustos con C# y .NET para el módulo de Personal. Trabaja con arquitectura hexagonal, Entity Framework y SQL Server.</p>
+                    <button class="btn-primary vacancy-btn">Aplicar Ahora</button>
+                </div>
+
+                <div class="vacancy-card">
+                    <span class="vacancy-badge">Nuevo</span>
+                    <h3>Backend Developer Java</h3>
+                    <div class="vacancy-info">
+                        <div class="vacancy-info-item">
+                            <span>📍</span>
+                            <span><strong>Ubicación:</strong> Híbrido</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>💼</span>
+                            <span><strong>Tipo:</strong> Tiempo Completo</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>🏢</span>
+                            <span><strong>Departamento:</strong> Engineering</span>
+                        </div>
+                    </div>
+                    <p>Construye servicios escalables con Spring Boot y PostgreSQL para el sistema de reclutamiento. Experiencia con APIs REST y arquitectura limpia.</p>
+                    <button class="btn-primary vacancy-btn">Aplicar Ahora</button>
+                </div>
+
+                <div class="vacancy-card">
+                    <h3>Frontend Developer Next.js</h3>
+                    <div class="vacancy-info">
+                        <div class="vacancy-info-item">
+                            <span>📍</span>
+                            <span><strong>Ubicación:</strong> Remoto</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>💼</span>
+                            <span><strong>Tipo:</strong> Tiempo Completo</span>
+                        </div>
+                        <div class="vacancy-info-item">
+                            <span>🏢</span>
+                            <span><strong>Departamento:</strong> Engineering</span>
+                        </div>
+                    </div>
+                    <p>Diseña interfaces modernas y responsivas con Next.js, TypeScript y TailwindCSS. Participa en la optimización del rendimiento y experiencia de usuario.</p>
+                    <button class="btn-primary vacancy-btn">Aplicar Ahora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="content-container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes preguntas? Estamos aquí para ayudarte</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>¿Quieres saber más sobre HexaLink?</h3>
+                    <p>Nuestro equipo está listo para responder todas tus preguntas sobre la plataforma, implementación y soporte. Comunícate con nosotros directamente o envía un mensaje a través del formulario.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-item-text">
+                                <h4>Teléfono</h4>
+                                <p>+57 1 2344 5678</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-item-text">
+                                <h4>Email</h4>
+                                <p>info@hexalink.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-item-text">
+                                <h4>Ubicación</h4>
+                                <p>Barranquilla, Colombia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-message" id="formMessage"></div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nombre Completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>HexaLink</h3>
+                <p>Plataforma moderna de gestión de capital humano basada en microservicios y arquitectura hexagonal.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">in</a>
+                    <a href="#" class="social-link" title="Twitter">𝕏</a>
+                    <a href="#" class="social-link" title="GitHub">⚡</a>
+                    <a href="#" class="social-link" title="Facebook">f</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Producto</h4>
+                <a href="#soluciones">Características</a>
+                <a href="#soluciones">Precios</a>
+                <a href="#soluciones">Seguridad</a>
+            </div>
+            <div class="footer-links">
+                <h4>Compañía</h4>
+                <a href="#nosotros">Acerca de</a>
+                <a href="#soluciones">Blog</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 HexaLink. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script is:inline>
+        // Load dark mode preference on page load
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Toggle dark mode
+        window.toggleDarkMode = function() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
+            console.log('Dark mode:', isDarkMode);
+        };
+
+        // Contact form handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+
+            if (contactForm && formMessage) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(contactForm);
+                    const data = Object.fromEntries(formData);
+
+                    // Simulate form submission
+                    formMessage.textContent = '✅ Mensaje enviado correctamente. Nos pondremos en contacto pronto.';
+                    formMessage.className = 'form-message success';
+                    contactForm.reset();
+
+                    setTimeout(() => {
+                        formMessage.className = 'form-message';
+                    }, 5000);
+                });
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            // Vacancy button handler
+            document.querySelectorAll('.vacancy-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    alert('¡Gracias por tu interés! Por favor completa el formulario de aplicación.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

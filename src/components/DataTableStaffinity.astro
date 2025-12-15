@@ -1,0 +1,369 @@
+---
+// Componente de tabla genérica con estilos Staffinity (tema oscuro)
+interface Column {
+  key: string;
+  label: string;
+  sortable?: boolean;
+}
+
+interface Props {
+  title: string;
+  columns: Column[];
+  rows: any[];
+  actions?: {
+    label: string;
+    href?: string;
+    variant?: 'primary' | 'secondary' | 'danger';
+  }[];
+}
+
+const { title, columns, rows, actions } = Astro.props;
+---
+
+<div class="data-table-wrapper">
+  
+  <!-- Header -->
+  <div class="data-table-header">
+    <h3 class="data-table-title">{title}</h3>
+  </div>
+
+  <!-- Table -->
+  <div class="data-table-container">
+    <table class="data-table">
+      <thead>
+        <tr class="data-table-head-row">
+          {columns.map((col) => (
+            <th 
+              class="data-table-header-cell"
+            >
+              <div class="data-table-header-content">
+                <span>{col.label}</span>
+                {col.sortable && <span class="data-table-sort-icon">↕️</span>}
+              </div>
+            </th>
+          ))}
+          {actions && <th class="data-table-header-cell">Acciones</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.length === 0 ? (
+          <tr>
+            <td colspan={columns.length + (actions ? 1 : 0)} class="data-table-empty-cell">
+              No hay datos disponibles
+            </td>
+          </tr>
+        ) : (
+          rows.map((row, idx) => (
+            <tr class="data-table-body-row">
+              {columns.map((col) => (
+                <td class="data-table-cell">
+                  {row[col.key]}
+                </td>
+              ))}
+              {actions && (
+                <td class="data-table-actions-cell">
+                  {actions.map((action) => {
+                    const variant = action.variant || 'primary';
+                    return (
+                      <a
+                        href={action.href || '#'}
+                        class={`data-table-action-btn data-table-action-${variant}`}
+                      >
+                        {action.label}
+                      </a>
+                    );
+                  })}
+                </td>
+              )}
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="data-table-footer">
+    <p class="data-table-footer-text">
+      Total: <strong class="data-table-footer-count">{rows.length}</strong> registros
+    </p>
+    <div class="data-table-pagination">
+      <button class="data-table-pagination-btn">
+        ← Anterior
+      </button>
+      <button class="data-table-pagination-btn">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* CSS Variables globales para tema claro y oscuro */
+  :global(:root) {
+    /* Tema Claro */
+    --dt-bg-primary: #ffffff;
+    --dt-bg-secondary: #f7f9fc;
+    --dt-bg-header: linear-gradient(90deg, #0d9488 0%, #0d9488 100%);
+    --dt-border: #e2e8f0;
+    --dt-text-primary: #1a202c;
+    --dt-text-secondary: #4a5568;
+    --dt-text-tertiary: #718096;
+    --dt-hover-bg: #f1f5f9;
+    --dt-header-text: #ffffff;
+    --dt-accent: #0d9488;
+    --dt-accent-hover: #0e7490;
+  }
+
+  /* Tema Oscuro */
+  :global(body.dark-mode) {
+    --dt-bg-primary: #1e293b;
+    --dt-bg-secondary: #0f172a;
+    --dt-bg-header: linear-gradient(90deg, #0d9488 0%, #0d9488 100%);
+    --dt-border: #334155;
+    --dt-text-primary: #f1f5f9;
+    --dt-text-secondary: #cbd5e1;
+    --dt-text-tertiary: #94a3b8;
+    --dt-hover-bg: #0f172a;
+    --dt-header-text: #ffffff;
+    --dt-accent: #0d9488;
+    --dt-accent-hover: #0e7490;
+  }
+
+  /* Wrapper */
+  .data-table-wrapper {
+    background: var(--dt-bg-primary);
+    border: 1px solid var(--dt-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Header */
+  .data-table-header {
+    padding: 1.5rem;
+    background: var(--dt-bg-header);
+    border-bottom: 1px solid var(--dt-border);
+  }
+
+  .data-table-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--dt-header-text);
+    margin: 0;
+  }
+
+  /* Table Container */
+  .data-table-container {
+    overflow-x: auto;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  /* Table Head */
+  .data-table-head-row {
+    background: var(--dt-bg-secondary);
+    border-bottom: 1px solid var(--dt-border);
+  }
+
+  .data-table-header-cell {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dt-text-primary);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+  }
+
+  .data-table-header-cell:hover {
+    background: var(--dt-hover-bg);
+  }
+
+  .data-table-header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .data-table-sort-icon {
+    font-size: 0.75rem;
+    color: var(--dt-accent);
+  }
+
+  /* Table Body */
+  .data-table-body-row {
+    border-bottom: 1px solid var(--dt-border);
+    transition: background-color 0.2s ease;
+  }
+
+  .data-table-body-row:hover {
+    background: var(--dt-hover-bg);
+  }
+
+  .data-table-cell {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    color: var(--dt-text-secondary);
+  }
+
+  /* Empty State */
+  .data-table-empty-cell {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--dt-text-tertiary);
+  }
+
+  /* Actions */
+  .data-table-actions-cell {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .data-table-action-btn {
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  /* Action Button Variants */
+  .data-table-action-primary {
+    background: var(--dt-accent);
+    color: white;
+  }
+
+  .data-table-action-primary:hover {
+    background: var(--dt-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .data-table-action-secondary {
+    background: var(--dt-border);
+    color: var(--dt-text-primary);
+  }
+
+  .data-table-action-secondary:hover {
+    background: var(--dt-hover-bg);
+    border-color: var(--dt-accent);
+  }
+
+  .data-table-action-danger {
+    background: #ef4444;
+    color: white;
+  }
+
+  .data-table-action-danger:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+  }
+
+  /* Footer */
+  .data-table-footer {
+    padding: 1rem 1.5rem;
+    background: var(--dt-bg-secondary);
+    border-top: 1px solid var(--dt-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .data-table-footer-text {
+    font-size: 0.875rem;
+    color: var(--dt-text-secondary);
+    margin: 0;
+  }
+
+  .data-table-footer-count {
+    color: var(--dt-text-primary);
+  }
+
+  /* Pagination */
+  .data-table-pagination {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .data-table-pagination-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--dt-border);
+    background: transparent;
+    color: var(--dt-text-secondary);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .data-table-pagination-btn:hover {
+    background: var(--dt-hover-bg);
+    border-color: var(--dt-accent);
+    color: var(--dt-accent);
+  }
+
+  /* Scroll personalizado */
+  .data-table-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .data-table-container::-webkit-scrollbar-track {
+    background: var(--dt-bg-secondary);
+  }
+  
+  .data-table-container::-webkit-scrollbar-thumb {
+    background: var(--dt-accent);
+    border-radius: 4px;
+  }
+  
+  .data-table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--dt-accent-hover);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .data-table-wrapper {
+      border-radius: 0.375rem;
+    }
+
+    .data-table-header {
+      padding: 1rem;
+    }
+
+    .data-table-title {
+      font-size: 1rem;
+    }
+
+    .data-table-header-cell,
+    .data-table-cell {
+      padding: 0.75rem;
+      font-size: 0.8125rem;
+    }
+
+    .data-table-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .data-table-pagination {
+      width: 100%;
+    }
+
+    .data-table-pagination-btn {
+      flex: 1;
+    }
+  }
+</style>
