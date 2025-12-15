@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import AccessChecker from '../components/AccessChecker.astro';
 
 interface Props {
   title?: string;
@@ -22,6 +23,28 @@ const { title = 'Dashboard', description = 'Sistema ERP Hexa-Link', currentPage 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-[#cbdcdd] text-[#0b0b0b] flex">
+    <!-- Auth Check - NO AUTO REDIRECT -->
+    <script is:inline>
+      // Check auth after page fully loads
+      window.addEventListener('load', () => {
+        const isAuth = localStorage.getItem('isAuthenticated');
+        const token = localStorage.getItem('authToken');
+        
+        if (isAuth === '1' && token) {
+          try {
+            const user = JSON.parse(token);
+            console.log('✅ Logged in as:', user.email, '(' + user.role + ')');
+          } catch (e) {
+            console.log('⚠️ Invalid token');
+          }
+        } else {
+          console.log('ℹ️ Not logged in - use /login to authenticate');
+        }
+      });
+    </script>
+
+    <AccessChecker currentPage={currentPage} />
+
     <!-- Sidebar -->
     <aside class="w-64 bg-white border-r-2 border-[#c7dfdf] fixed h-screen overflow-y-auto">
       
@@ -106,18 +129,9 @@ const { title = 'Dashboard', description = 'Sistema ERP Hexa-Link', currentPage 
 </html>
 
 <script>
-  // Verificar autenticación
-  window.addEventListener('load', () => {
-    const token = localStorage.getItem('auth_token');
-    if (!token) {
-      window.location.href = '/login';
-    }
-  });
-
-  // Logout
+  // Logout button only - no auto redirect
   document.getElementById('logoutBtn')?.addEventListener('click', () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('remember_me');
+    localStorage.clear();
     window.location.href = '/login';
   });
 </script>

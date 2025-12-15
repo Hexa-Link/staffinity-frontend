@@ -1,0 +1,31 @@
+---
+// ProtectedPage.astro - Wrapper component for protected pages
+interface Props {
+  requiredRole?: 'admin' | 'hr' | 'employee' | 'candidate' | 'any';
+  requiredPage?: string;
+  children?: any;
+}
+
+const { requiredRole = 'any', requiredPage = '/' } = Astro.props;
+---
+
+<div id="protected-container">
+  <slot />
+</div>
+
+<script is:inline define:vars={{ requiredPage }}>
+  // Auth check - NO AUTO REDIRECT
+  window.addEventListener('load', () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const user = JSON.parse(token);
+        console.log('✅ Logged in:', user.email);
+      } catch (e) {
+        console.log('ℹ️ Not logged in');
+      }
+    } else {
+      console.log('ℹ️ Not logged in - visit /login');
+    }
+  });
+</script>
