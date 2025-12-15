@@ -1,0 +1,473 @@
+---
+// Página: Gestión de Vacaciones (HR/Admin)
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import DataTableStaffinity from '../components/DataTableStaffinity.astro';
+
+interface VacationRequest {
+  id: string;
+  employee: string;
+  department: string;
+  startDate: string;
+  endDate: string;
+  days: number;
+  status: string;
+  reason: string;
+}
+
+const vacationRequests: VacationRequest[] = [
+  {
+    id: 'VAC-REQ-001',
+    employee: 'María López',
+    department: 'Engineering',
+    startDate: '2024-07-15',
+    endDate: '2024-07-19',
+    days: 5,
+    status: 'pending',
+    reason: 'Vacaciones de verano'
+  },
+  {
+    id: 'VAC-REQ-002',
+    employee: 'Carlos Mendez',
+    department: 'Sales',
+    startDate: '2024-07-22',
+    endDate: '2024-07-26',
+    days: 5,
+    status: 'approved',
+    reason: 'Viaje familiar'
+  },
+  {
+    id: 'VAC-REQ-003',
+    employee: 'Ana Rodríguez',
+    department: 'HR',
+    startDate: '2024-08-01',
+    endDate: '2024-08-10',
+    days: 10,
+    status: 'pending',
+    reason: 'Descanso personal'
+  },
+  {
+    id: 'VAC-REQ-004',
+    employee: 'Pedro García',
+    department: 'Finance',
+    startDate: '2024-07-01',
+    endDate: '2024-07-05',
+    days: 5,
+    status: 'approved',
+    reason: 'Vacaciones aprobadas'
+  },
+  {
+    id: 'VAC-REQ-005',
+    employee: 'Laura Sánchez',
+    department: 'Marketing',
+    startDate: '2024-08-15',
+    endDate: '2024-08-22',
+    days: 8,
+    status: 'rejected',
+    reason: 'No aplica - fuera de cuota'
+  },
+];
+
+const columns = [
+  { key: 'id', label: 'ID' },
+  { key: 'employee', label: 'Empleado' },
+  { key: 'department', label: 'Departamento' },
+  { key: 'startDate', label: 'Fecha Inicio' },
+  { key: 'endDate', label: 'Fecha Fin' },
+  { key: 'days', label: 'Días' },
+];
+
+const actions = [
+  { label: 'Revisar', variant: 'primary' },
+  { label: 'Aprobar', variant: 'primary' },
+  { label: 'Rechazar', variant: 'danger' },
+];
+---
+
+<DashboardLayout title="Gestión de Vacaciones - HexaLink ERP">
+  <style>
+    .vacation-management {
+      background: #0f172a;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .vacation-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      color: #f1f5f9;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .filters-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .filter-label {
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .filter-input,
+    .filter-select {
+      padding: 0.75rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .filter-input:focus,
+    .filter-select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+
+    .btn-search {
+      background: #0d9488;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-search:hover {
+      background: #0e7490;
+      transform: translateY(-2px);
+    }
+
+    /* Statistics Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card.pending {
+      border-top: 3px solid #f59e0b;
+    }
+
+    .stat-card.approved {
+      border-top: 3px solid #22c55e;
+    }
+
+    .stat-card.rejected {
+      border-top: 3px solid #ef4444;
+    }
+
+    .stat-value {
+      color: #f1f5f9;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    /* Status badges */
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-badge.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-badge.approved {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-badge.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Data Table Custom Styling */
+    :global(.data-table) {
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+
+    :global(.data-table thead) {
+      background: linear-gradient(90deg, #0d9488 0%, #0e7490 100%);
+    }
+
+    :global(.data-table th) {
+      color: white;
+      padding: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid #334155;
+    }
+
+    :global(.data-table td) {
+      color: #cbd5e1;
+      padding: 1rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    :global(.data-table tbody tr:hover) {
+      background: #263549;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      background: #1e293b;
+      border: 1px dashed #334155;
+      border-radius: 12px;
+      color: #cbd5e1;
+    }
+
+    .empty-state h3 {
+      color: #f1f5f9;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .filters-section {
+        flex-direction: column;
+      }
+
+      .filter-input,
+      .filter-select,
+      .btn-search {
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="vacation-management">
+    <div class="vacation-container">
+      <!-- Header -->
+      <div class="page-header">
+        <h1 class="page-title">Gestión de Solicitudes de Vacaciones</h1>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats-grid">
+        <div class="stat-card pending">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Pendientes de Revisión</div>
+        </div>
+        <div class="stat-card approved">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Aprobadas</div>
+        </div>
+        <div class="stat-card rejected">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Rechazadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">17</div>
+          <div class="stat-label">Total Solicitudes</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-section">
+        <div class="filter-group">
+          <label class="filter-label">Búsqueda por Empleado</label>
+          <input 
+            type="text" 
+            class="filter-input" 
+            placeholder="Nombre o ID del empleado..."
+          >
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Estado</label>
+          <select class="filter-select">
+            <option value="">Todos</option>
+            <option value="pending">Pendiente</option>
+            <option value="approved">Aprobada</option>
+            <option value="rejected">Rechazada</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Departamento</label>
+          <select class="filter-select">
+            <option value="">Todos</option>
+            <option value="engineering">Engineering</option>
+            <option value="sales">Sales</option>
+            <option value="hr">HR</option>
+            <option value="finance">Finance</option>
+            <option value="marketing">Marketing</option>
+          </select>
+        </div>
+
+        <button class="btn-search">🔍 Buscar</button>
+      </div>
+
+      <!-- Data Table -->
+      <div class="vacation-table">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Empleado</th>
+              <th>Departamento</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Días</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vacationRequests.map((request) => (
+              <tr>
+                <td>{request.id}</td>
+                <td>{request.employee}</td>
+                <td>{request.department}</td>
+                <td>{request.startDate}</td>
+                <td>{request.endDate}</td>
+                <td>{request.days}</td>
+                <td>
+                  <span class={`status-badge ${request.status}`}>
+                    {request.status === 'pending' && 'Pendiente'}
+                    {request.status === 'approved' && 'Aprobada'}
+                    {request.status === 'rejected' && 'Rechazada'}
+                  </span>
+                </td>
+                <td style="display: flex; gap: 0.5rem;">
+                  {request.status === 'pending' && (
+                    <>
+                      <button class="btn-action primary" title="Ver detalles">👁️</button>
+                      <button class="btn-action primary" title="Aprobar">✓</button>
+                      <button class="btn-action danger" title="Rechazar">✕</button>
+                    </>
+                  )}
+                  {request.status !== 'pending' && (
+                    <button class="btn-action secondary" title="Ver detalles">👁️</button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Additional Actions -->
+      <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+        <button class="btn-search" style="background: #334155;">📊 Generar Reporte</button>
+        <button class="btn-search" style="background: #334155;">📥 Exportar a Excel</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .btn-action {
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+
+    .btn-action.primary {
+      background: #0d9488;
+      color: white;
+    }
+
+    .btn-action.primary:hover {
+      background: #0e7490;
+    }
+
+    .btn-action.danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-action.danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-action.secondary {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    .btn-action.secondary:hover {
+      background: #475569;
+    }
+  </style>
+
+  <script>
+    // Button actions
+    document.querySelectorAll('.btn-action.primary').forEach(btn => {
+      btn.addEventListener('click', (e: Event) => {
+        const target = e.target as HTMLElement;
+        const action = target?.title;
+        if (action === 'Aprobar') {
+          alert('Solicitud de vacaciones aprobada (Modal a implementar)');
+        } else if (action === 'Ver detalles') {
+          alert('Ver detalles de la solicitud (Modal a implementar)');
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-action.danger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (confirm('¿Está seguro de que desea rechazar esta solicitud?')) {
+          alert('Solicitud rechazada (Modal a implementar)');
+        }
+      });
+    });
+
+    // Search and filter
+    document.querySelector('.btn-search')?.addEventListener('click', () => {
+      console.log('Filtrar solicitudes de vacaciones');
+    });
+  </script>
+</DashboardLayout>
