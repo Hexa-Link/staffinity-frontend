@@ -1,0 +1,407 @@
+---
+// Página: Gestión de Candidatos - Vista HR
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import DataTableStaffinity from '../components/DataTableStaffinity.astro';
+
+interface Candidate {
+  id: string;
+  name: string;
+  email: string;
+  position: string;
+  department: string;
+  status: string;
+  appliedDate: string;
+}
+
+const candidates: Candidate[] = [
+  {
+    id: 'CAN-001',
+    name: 'Carlos López Martínez',
+    email: 'carlos.lopez@email.com',
+    position: 'Backend Developer .NET',
+    department: 'Engineering',
+    status: 'In Review',
+    appliedDate: '2024-12-10'
+  },
+  {
+    id: 'CAN-002',
+    name: 'Elena Rodríguez García',
+    email: 'elena.rodriguez@email.com',
+    position: 'Frontend Developer Next.js',
+    department: 'Engineering',
+    status: 'Interview',
+    appliedDate: '2024-12-08'
+  },
+  {
+    id: 'CAN-003',
+    name: 'David Fernández Silva',
+    email: 'david.fernandez@email.com',
+    position: 'Senior DevOps Engineer',
+    department: 'Engineering',
+    status: 'Rejected',
+    appliedDate: '2024-12-05'
+  },
+  {
+    id: 'CAN-004',
+    name: 'Laura García Sánchez',
+    email: 'laura.garcia@email.com',
+    position: 'HR Manager',
+    department: 'HR',
+    status: 'Hired',
+    appliedDate: '2024-11-28'
+  },
+  {
+    id: 'CAN-005',
+    name: 'Miguel Pérez Ruiz',
+    email: 'miguel.perez@email.com',
+    position: 'Product Manager',
+    department: 'Product',
+    status: 'In Review',
+    appliedDate: '2024-12-12'
+  }
+];
+
+const columns = [
+  { key: 'id', label: 'ID Candidato' },
+  { key: 'name', label: 'Nombre' },
+  { key: 'email', label: 'Email' },
+  { key: 'position', label: 'Posición' },
+  { key: 'department', label: 'Depto' },
+  { key: 'status', label: 'Estado' },
+];
+
+const actions = [
+  { label: 'Ver CV', variant: 'primary' as const },
+  { label: 'Entrevista', variant: 'primary' as const },
+  { label: 'Rechazar', variant: 'danger' as const },
+];
+---
+
+<DashboardLayout title="Gestión de Candidatos - HexaLink ERP">
+  <style>
+    .candidates-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-title {
+      color: #f1f5f9;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .btn-new {
+      background: #0d9488;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-new:hover {
+      background: #0e7490;
+      transform: translateY(-2px);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card.in-review {
+      border-top: 3px solid #3b82f6;
+    }
+
+    .stat-card.interview {
+      border-top: 3px solid #f59e0b;
+    }
+
+    .stat-card.hired {
+      border-top: 3px solid #22c55e;
+    }
+
+    .stat-value {
+      color: #f1f5f9;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .filters-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .filter-label {
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .filter-input,
+    .filter-select {
+      padding: 0.75rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .filter-input:focus,
+    .filter-select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+
+    .btn-search {
+      background: #0d9488;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-search:hover {
+      background: #0e7490;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-badge.in-review {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .status-badge.interview {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-badge.hired {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-badge.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    :global(.data-table) {
+      background: #1e293b;
+      border: 1px solid #334155;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .filters-section {
+        flex-direction: column;
+      }
+
+      .filter-input,
+      .filter-select,
+      .btn-search {
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="candidates-container">
+    <!-- Header -->
+    <div class="page-header">
+      <h1 class="page-title">Gestión de Candidatos</h1>
+      <button class="btn-new">➕ Nuevo Candidato</button>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card in-review">
+        <div class="stat-value">5</div>
+        <div class="stat-label">En Revisión</div>
+      </div>
+      <div class="stat-card interview">
+        <div class="stat-value">3</div>
+        <div class="stat-label">En Entrevista</div>
+      </div>
+      <div class="stat-card hired">
+        <div class="stat-value">1</div>
+        <div class="stat-label">Contratados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">9</div>
+        <div class="stat-label">Total Candidatos</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label">Búsqueda</label>
+        <input 
+          type="text" 
+          class="filter-input" 
+          placeholder="Nombre o email..."
+        >
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Posición</label>
+        <select class="filter-select">
+          <option value="">Todas</option>
+          <option value="backend">Backend Developer .NET</option>
+          <option value="frontend">Frontend Developer Next.js</option>
+          <option value="devops">Senior DevOps Engineer</option>
+          <option value="hr">HR Manager</option>
+          <option value="pm">Product Manager</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Estado</label>
+        <select class="filter-select">
+          <option value="">Todos</option>
+          <option value="in-review">En Revisión</option>
+          <option value="interview">En Entrevista</option>
+          <option value="hired">Contratado</option>
+          <option value="rejected">Rechazado</option>
+        </select>
+      </div>
+
+      <button class="btn-search">🔍 Buscar</button>
+    </div>
+
+    <!-- Candidates Table -->
+    <table style="width: 100%; border-collapse: collapse; background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden;">
+      <thead>
+        <tr style="background: linear-gradient(90deg, #0d9488 0%, #0e7490 100%);">
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">ID</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Nombre</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Email</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Posición</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Depto</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Estado</th>
+          <th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {candidates.map((candidate) => (
+          <tr style="border-bottom: 1px solid #334155;">
+            <td style="padding: 1rem; color: #cbd5e1;">{candidate.id}</td>
+            <td style="padding: 1rem; color: #f1f5f9; font-weight: 600;">{candidate.name}</td>
+            <td style="padding: 1rem; color: #cbd5e1;">{candidate.email}</td>
+            <td style="padding: 1rem; color: #cbd5e1;">{candidate.position}</td>
+            <td style="padding: 1rem; color: #cbd5e1;">{candidate.department}</td>
+            <td style="padding: 1rem;">
+              <span class={`status-badge ${candidate.status.toLowerCase().replace(' ', '-')}`}>
+                {candidate.status}
+              </span>
+            </td>
+            <td style="padding: 1rem; display: flex; gap: 0.5rem;">
+              <button style="background: #0d9488; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">📄</button>
+              <button style="background: #0d9488; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">📞</button>
+              <button style="background: #ef4444; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">✕</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.querySelector('.btn-new')?.addEventListener('click', () => {
+      alert('Modal para agregar nuevo candidato (a implementar)');
+    });
+
+    document.querySelector('.btn-search')?.addEventListener('click', () => {
+      console.log('Buscar candidatos');
+    });
+
+    // Control de permisos según rol
+    // HR y Admin pueden gestionar candidatos
+    // Solo Admin puede eliminar definitivamente (el ✕ rojo)
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const authData = localStorage.getItem('authToken');
+        if (authData) {
+          const user = JSON.parse(authData);
+          const role = user.role || 'employee';
+          
+          // Si NO es admin, el botón ✕ (rechazar/eliminar) cambia su comportamiento
+          if (role !== 'admin') {
+            // Para HR el ✕ rechaza pero no elimina definitivamente
+            document.querySelectorAll('button').forEach(btn => {
+              if (btn.textContent?.trim() === '✕') {
+                btn.title = 'Rechazar candidato';
+                btn.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  alert('Candidato marcado como Rechazado (no eliminado del sistema)');
+                });
+              }
+            });
+          }
+        }
+      } catch (e) {
+        console.log('Error verificando rol:', e);
+      }
+    });
+  </script>
+</DashboardLayout>
