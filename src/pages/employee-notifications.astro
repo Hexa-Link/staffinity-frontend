@@ -1,0 +1,355 @@
+---
+// Página: Notificaciones del Empleado
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Mis Notificaciones - HexaLink ERP">
+  <style>
+    .notifications-page {
+      background: #0f172a;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .notifications-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      color: #f1f5f9;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .notification-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+
+    .notification-item:hover {
+      border-color: #0d9488;
+      background: #263549;
+    }
+
+    .notification-item.unread {
+      border-left: 4px solid #0d9488;
+    }
+
+    .notification-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      background: #334155;
+    }
+
+    .notification-icon.info {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .notification-icon.success {
+      background: #22c55e;
+      color: white;
+    }
+
+    .notification-icon.warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      color: #f1f5f9;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-description {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-time {
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn-small {
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-action {
+      background: #0d9488;
+      color: white;
+    }
+
+    .btn-action:hover {
+      background: #0e7490;
+    }
+
+    .btn-dismiss {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    .btn-dismiss:hover {
+      background: #475569;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #1e293b;
+      border: 1px dashed #334155;
+      border-radius: 12px;
+      color: #cbd5e1;
+    }
+
+    .empty-state h3 {
+      color: #f1f5f9;
+      margin-bottom: 1rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: #334155;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+      background: #0d9488;
+      color: white;
+      border-color: #0d9488;
+    }
+
+    .filter-btn:hover {
+      background: #475569;
+    }
+
+    @media (max-width: 768px) {
+      .notification-item {
+        flex-direction: column;
+      }
+
+      .notification-actions {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+
+  <div class="notifications-page">
+    <div class="notifications-container">
+      <h1 class="page-title">Mis Notificaciones</h1>
+
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="unread">No Leídas</button>
+        <button class="filter-btn" data-filter="vacations">Vacaciones</button>
+        <button class="filter-btn" data-filter="updates">Actualizaciones</button>
+      </div>
+
+      <!-- Notifications List -->
+      <div id="notificationsList">
+        <!-- Notification 1: Unread -->
+        <div class="notification-item unread">
+          <div class="notification-icon info">📢</div>
+          <div class="notification-content">
+            <div class="notification-title">Tu solicitud de vacaciones fue aprobada</div>
+            <div class="notification-description">
+              Tu solicitud de vacaciones del 20-27 de diciembre ha sido aprobada por el departamento de HR.
+            </div>
+            <div class="notification-time">Hace 2 horas</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-action">Ver</button>
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+
+        <!-- Notification 2 -->
+        <div class="notification-item">
+          <div class="notification-icon success">✓</div>
+          <div class="notification-content">
+            <div class="notification-title">Actualización de tu perfil completada</div>
+            <div class="notification-description">
+              Tu información de contacto ha sido actualizada correctamente en el sistema.
+            </div>
+            <div class="notification-time">Ayer a las 3:45 PM</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+
+        <!-- Notification 3: Unread -->
+        <div class="notification-item unread">
+          <div class="notification-icon warning">⚡</div>
+          <div class="notification-content">
+            <div class="notification-title">Nueva vacante disponible en tu departamento</div>
+            <div class="notification-description">
+              Se ha publicado una nueva vacante de "Senior Backend Developer" en Engineering. Puedes referir candidatos.
+            </div>
+            <div class="notification-time">Hace 1 día</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-action">Ver Vacante</button>
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+
+        <!-- Notification 4 -->
+        <div class="notification-item">
+          <div class="notification-icon info">📋</div>
+          <div class="notification-content">
+            <div class="notification-title">Recordatorio: Revisión de desempeño próxima</div>
+            <div class="notification-description">
+              Tu revisión de desempeño está programada para el 20 de diciembre a las 10:00 AM con tu supervisor.
+            </div>
+            <div class="notification-time">Hace 2 días</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-action">Confirmar</button>
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+
+        <!-- Notification 5 -->
+        <div class="notification-item">
+          <div class="notification-icon success">💰</div>
+          <div class="notification-content">
+            <div class="notification-title">Tu nómina de diciembre está disponible</div>
+            <div class="notification-description">
+              Tu recibo de pago para diciembre está listo. Puedes descargarlo desde tu perfil.
+            </div>
+            <div class="notification-time">Hace 3 días</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-action">Descargar</button>
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+
+        <!-- Notification 6 -->
+        <div class="notification-item">
+          <div class="notification-icon info">🎓</div>
+          <div class="notification-content">
+            <div class="notification-title">Nuevo programa de capacitación disponible</div>
+            <div class="notification-description">
+              Se ha abierto un nuevo programa de "Advanced TypeScript" para desarrolladores. ¿Estás interesado?
+            </div>
+            <div class="notification-time">Hace 5 días</div>
+          </div>
+          <div class="notification-actions">
+            <button class="btn-small btn-action">Explorar</button>
+            <button class="btn-small btn-dismiss">Descartar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State (initially hidden) -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <h3>📭 No hay notificaciones</h3>
+        <p>No tienes notificaciones en este momento. Vuelve más tarde para actualizaciones.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const notificationsList = document.getElementById('notificationsList');
+    const emptyState = document.getElementById('emptyState');
+    const notificationsItems = document.querySelectorAll('.notification-item');
+
+    filterBtns?.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = (btn as HTMLElement).dataset.filter;
+        
+        // Filter notifications
+        let visibleCount = 0;
+        notificationsItems.forEach(item => {
+          if (filter === 'all') {
+            (item as HTMLElement).style.display = 'flex';
+            visibleCount++;
+          } else if (filter === 'unread' && item.classList.contains('unread')) {
+            (item as HTMLElement).style.display = 'flex';
+            visibleCount++;
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+
+        // Show empty state if no notifications
+        if (visibleCount === 0) {
+          emptyState!.style.display = 'block';
+          notificationsList!.style.display = 'none';
+        } else {
+          emptyState!.style.display = 'none';
+          notificationsList!.style.display = 'block';
+        }
+      });
+    });
+
+    // Dismiss button functionality
+    document.querySelectorAll('.btn-dismiss').forEach(btn => {
+      btn.addEventListener('click', (e: Event) => {
+        const target = e.target as HTMLElement;
+        target.closest('.notification-item')?.remove();
+      });
+    });
+
+    // Action buttons
+    document.querySelectorAll('.btn-action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert('Acción ejecutada (modal a implementar)');
+      });
+    });
+  </script>
+</DashboardLayout>
