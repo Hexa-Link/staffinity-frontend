@@ -1,0 +1,206 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+
+const settingsSections = [
+  { id: 'profile', label: 'Perfil', icon: '👤' },
+  { id: 'company', label: 'Empresa', icon: '🏢' },
+  { id: 'integrations', label: 'Integraciones', icon: '🔗' },
+  { id: 'security', label: 'Seguridad', icon: '🔒' },
+  { id: 'notifications', label: 'Notificaciones', icon: '🔔' },
+  { id: 'billing', label: 'Facturación', icon: '💳' },
+];
+---
+
+<DashboardLayout title="Configuración" currentPage="settings">
+  
+  <!-- Header -->
+  <div>
+    <h2 class="text-3xl font-bold text-[#0b0b0b] mb-2">Configuración</h2>
+    <p class="text-[#6b7c7c]">Administra tu perfil y preferencias del sistema</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-8">
+    
+    <!-- Sidebar Navigation -->
+    <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] h-fit">
+      <div class="p-6 border-b-2 border-[#c7dfdf]">
+        <h3 class="font-bold text-[#0b0b0b]">Opciones</h3>
+      </div>
+      <nav class="divide-y divide-[#c7dfdf]">
+        {settingsSections.map((section) => (
+          <a 
+            href={`#${section.id}`}
+            class="block px-6 py-4 hover:bg-[#eef6f6] transition-all first:rounded-t-lg"
+          >
+            <div class="flex items-center space-x-3">
+              <span class="text-lg">{section.icon}</span>
+              <span class="text-sm font-medium text-[#0b0b0b]">{section.label}</span>
+            </div>
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- Settings Content -->
+    <div class="lg:col-span-3 space-y-6">
+      
+      <!-- Profile Settings -->
+      <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+        <h3 class="font-bold text-xl text-[#0b0b0b] mb-6">👤 Perfil del Usuario</h3>
+        
+        <div class="space-y-6">
+          <!-- Avatar -->
+          <div class="flex items-center space-x-6">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#0f615f] to-[#2d7a79] flex items-center justify-center text-white text-2xl font-bold">
+              JD
+            </div>
+            <div>
+              <p class="font-semibold text-[#0b0b0b]">Juan Delgado</p>
+              <p class="text-sm text-[#6b7c7c]">Admin - RR.HH.</p>
+              <button class="mt-2 text-sm text-[#0f615f] hover:text-[#2d7a79] font-medium">
+                Cambiar foto
+              </button>
+            </div>
+          </div>
+
+          <!-- Form Fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Nombre</label>
+              <input type="text" value="Juan Delgado" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Apellido</label>
+              <input type="text" value="Delgado" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Correo Electrónico</label>
+              <input type="email" value="juan@hexa-link.com" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Teléfono</label>
+              <input type="tel" placeholder="+57 300 123 4567" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+          </div>
+
+          <div class="flex space-x-4 pt-4 border-t-2 border-[#c7dfdf]">
+            <button class="px-6 py-2 bg-[#0f615f] text-white rounded-lg font-medium hover:bg-[#2d7a79]">
+              Guardar Cambios
+            </button>
+            <button class="px-6 py-2 border-2 border-[#c7dfdf] text-[#0f615f] rounded-lg font-medium hover:bg-[#eef6f6]">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Settings -->
+      <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+        <h3 class="font-bold text-xl text-[#0b0b0b] mb-6">🏢 Información de la Empresa</h3>
+        
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Nombre de la Empresa</label>
+              <input type="text" value="Hexa-Link SAS" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">RUT/Identificación</label>
+              <input type="text" value="123.456.789-0" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Dirección</label>
+              <input type="text" value="Calle Principal 123, Bogotá, CO" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Teléfono Empresa</label>
+              <input type="tel" value="+57 1 234 5678" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Sitio Web</label>
+              <input type="url" value="https://hexa-link.com" class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg" />
+            </div>
+          </div>
+
+          <div class="flex space-x-4 pt-4 border-t-2 border-[#c7dfdf]">
+            <button class="px-6 py-2 bg-[#0f615f] text-white rounded-lg font-medium hover:bg-[#2d7a79]">
+              Actualizar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Settings -->
+      <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+        <h3 class="font-bold text-xl text-[#0b0b0b] mb-6">🔒 Seguridad</h3>
+        
+        <div class="space-y-4">
+          <div class="p-4 bg-[#eef6f6] rounded-lg flex justify-between items-center">
+            <div>
+              <p class="font-semibold text-[#0b0b0b]">Cambiar Contraseña</p>
+              <p class="text-sm text-[#6b7c7c]">Actualiza tu contraseña regularmente</p>
+            </div>
+            <button class="px-4 py-2 border-2 border-[#0f615f] text-[#0f615f] rounded-lg font-medium hover:bg-[#cbdcdd]">
+              Cambiar
+            </button>
+          </div>
+
+          <div class="p-4 bg-[#eef6f6] rounded-lg flex justify-between items-center">
+            <div>
+              <p class="font-semibold text-[#0b0b0b]">Autenticación de Dos Factores</p>
+              <p class="text-sm text-[#6b7c7c]">Requiere código adicional al iniciar sesión</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" class="sr-only peer" checked />
+              <div class="w-11 h-6 bg-[#c7dfdf] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#eef6f6] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#c7dfdf] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0f615f]"></div>
+            </label>
+          </div>
+
+          <div class="p-4 bg-[#eef6f6] rounded-lg flex justify-between items-center">
+            <div>
+              <p class="font-semibold text-[#0b0b0b]">Sesiones Activas</p>
+              <p class="text-sm text-[#6b7c7c]">Gestiona tus sesiones en otros dispositivos</p>
+            </div>
+            <button class="px-4 py-2 border-2 border-[#0f615f] text-[#0f615f] rounded-lg font-medium hover:bg-[#cbdcdd]">
+              Ver
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Settings -->
+      <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6">
+        <h3 class="font-bold text-xl text-[#0b0b0b] mb-6">🔔 Notificaciones</h3>
+        
+        <div class="space-y-4">
+          {[
+            { label: 'Emails de Sistema', sublabel: 'Cambios y actualizaciones importantes' },
+            { label: 'Candidatos Nuevos', sublabel: 'Notificaciones de nuevos candidatos' },
+            { label: 'Bajos en Stock', sublabel: 'Alertas de productos con bajo inventario' },
+            { label: 'Reportes', sublabel: 'Confirmación de reportes generados' },
+          ].map((notif) => (
+            <div class="p-4 bg-[#eef6f6] rounded-lg flex justify-between items-center">
+              <div>
+                <p class="font-semibold text-[#0b0b0b]">{notif.label}</p>
+                <p class="text-sm text-[#6b7c7c]">{notif.sublabel}</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked />
+                <div class="w-11 h-6 bg-[#c7dfdf] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#eef6f6] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#c7dfdf] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0f615f]"></div>
+              </label>
+            </div>
+          ))}
+        </div>
+
+        <div class="flex space-x-4 pt-4 border-t-2 border-[#c7dfdf] mt-6">
+          <button class="px-6 py-2 bg-[#0f615f] text-white rounded-lg font-medium hover:bg-[#2d7a79]">
+            Guardar Preferencias
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</DashboardLayout>

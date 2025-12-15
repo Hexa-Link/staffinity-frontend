@@ -1,0 +1,122 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import DataTable from '../components/DataTable.astro';
+import StatWidget from '../components/StatWidget.astro';
+
+// Datos simulados de inventario
+const inventoryStats: Array<{title: string; value: string; subtitle: string; icon: string; trend: 'up' | 'down' | 'neutral'; trendValue: string}> = [
+  { title: 'Total SKU', value: '1,250', subtitle: 'Productos únicos', icon: '📦', trend: 'up', trendValue: '+45 este mes' },
+  { title: 'Stock Total', value: '25,430', subtitle: 'Unidades en almacén', icon: '🏪', trend: 'down', trendValue: '-8% vs mes anterior' },
+  { title: 'Valor Inventario', value: '$350,240', subtitle: 'Valorizado', icon: '💎', trend: 'up', trendValue: '+5% vs mes anterior' },
+  { title: 'Productos Bajo Stock', value: '32', subtitle: 'Requieren reorden', icon: '⚠️', trend: 'neutral', trendValue: '4 críticos' },
+];
+
+const products = [
+  { id: 'P001', name: 'Laptop HP 15-inch', sku: 'SKU-001', category: 'Electrónica', stock: 45, minStock: 10, price: '$899.99', location: 'A-5-2' },
+  { id: 'P002', name: 'Mouse Logitech', sku: 'SKU-002', category: 'Accesorios', stock: 3, minStock: 20, price: '$29.99', location: 'B-2-1' },
+  { id: 'P003', name: 'Teclado Mecánico', sku: 'SKU-003', category: 'Accesorios', stock: 12, minStock: 15, price: '$149.99', location: 'B-3-4' },
+  { id: 'P004', name: 'Monitor 27" 4K', sku: 'SKU-004', category: 'Electrónica', stock: 8, minStock: 5, price: '$599.99', location: 'A-1-1' },
+  { id: 'P005', name: 'Webcam HD 1080p', sku: 'SKU-005', category: 'Accesorios', stock: 25, minStock: 10, price: '$79.99', location: 'B-1-3' },
+  { id: 'P006', name: 'Escritorio Ajustable', sku: 'SKU-006', category: 'Muebles', stock: 5, minStock: 3, price: '$299.99', location: 'C-2-1' },
+];
+
+const columns = [
+  { key: 'name', label: 'Producto', sortable: true },
+  { key: 'sku', label: 'SKU', sortable: true },
+  { key: 'category', label: 'Categoría', sortable: true },
+  { key: 'stock', label: 'Stock Actual', sortable: true },
+  { key: 'minStock', label: 'Stock Mín.', sortable: false },
+  { key: 'price', label: 'Precio Unit.', sortable: true },
+];
+---
+
+<DashboardLayout title="Gestión de Inventario" currentPage="inventory">
+  
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-[#0b0b0b] mb-2">Inventario</h2>
+      <p class="text-[#6b7c7c]">Control de productos y stock</p>
+    </div>
+    <button class="bg-[#0f615f] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2d7a79] transition-all duration-200">
+      + Nuevo Producto
+    </button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    {inventoryStats.map((stat) => (
+      <StatWidget 
+        title={stat.title}
+        value={stat.value}
+        subtitle={stat.subtitle}
+        icon={stat.icon}
+        trend={stat.trend}
+        trendValue={stat.trendValue}
+      />
+    ))}
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white border-2 border-[#c7dfdf] rounded-[14px] p-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Buscar Producto</label>
+        <input 
+          type="text" 
+          placeholder="Nombre o SKU..." 
+          class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Categoría</label>
+        <select class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]">
+          <option>Todas</option>
+          <option>Electrónica</option>
+          <option>Accesorios</option>
+          <option>Muebles</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[#0b0b0b] mb-2">Estado de Stock</label>
+        <select class="w-full px-4 py-2 border-2 border-[#c7dfdf] rounded-lg focus:outline-none focus:border-[#0f615f]">
+          <option>Todos</option>
+          <option>Normal</option>
+          <option>Bajo Stock</option>
+          <option>Crítico</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button class="w-full bg-[#0f615f] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#2d7a79] transition-all">
+          Filtrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Table -->
+  <DataTable 
+    title={`Total: ${products.length} productos`}
+    columns={columns}
+    rows={products}
+    actions={[
+      { label: 'Ver Detalles' },
+      { label: 'Editar' },
+      { label: 'Movimiento' },
+    ]}
+  />
+
+  <!-- Low Stock Alert -->
+  <div class="mt-8 bg-yellow-50 border-2 border-yellow-300 rounded-[14px] p-6">
+    <h3 class="font-bold text-lg text-yellow-900 mb-4">⚠️ Alertas de Stock</h3>
+    <div class="space-y-2">
+      <p class="text-sm text-yellow-800"><strong>Mouse Logitech:</strong> Stock = 3, Mínimo = 20. Requiere reorden inmediata.</p>
+      <p class="text-sm text-yellow-800"><strong>Teclado Mecánico:</strong> Stock = 12, Mínimo = 15. Por debajo del mínimo.</p>
+      <p class="text-sm text-yellow-800"><strong>Escritorio Ajustable:</strong> Stock = 5, Mínimo = 3. Próximo a bajo stock.</p>
+    </div>
+    <button class="mt-4 px-4 py-2 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700">
+      Crear Orden de Compra
+    </button>
+  </div>
+
+</DashboardLayout>

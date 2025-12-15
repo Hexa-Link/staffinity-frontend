@@ -1,0 +1,38 @@
+---
+// Componente Button reutilizable
+interface Props {
+  variant?: 'primary' | 'outline' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  class?: string;
+  disabled?: boolean;
+}
+
+const { variant = 'primary', size = 'md', href, class: className, disabled } = Astro.props;
+
+const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0f615f]';
+
+const variantStyles = {
+  primary: 'bg-[#0f615f] text-white hover:bg-[#2d7a79] active:bg-[#0a4b4a]',
+  outline: 'border-2 border-[#0f615f] text-[#0f615f] hover:bg-[#eef6f6] active:bg-[#cbdcdd]',
+  secondary: 'bg-[#eef6f6] text-[#0f615f] hover:bg-[#cbdcdd] active:bg-[#b8cfcf]',
+};
+
+const sizeStyles = {
+  sm: 'px-3 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+
+const classes = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className || ''}`;
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <button class={classes} disabled={disabled}>
+    <slot />
+  </button>
+)}
