@@ -1,0 +1,72 @@
+---
+// AccessChecker.astro - Visual component showing current access and permissions
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = '/' } = Astro.props;
+---
+
+<div id="access-checker" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 12px; font-size: 12px; color: #cbd5e1; font-family: monospace; max-width: 250px;">
+    <div style="margin-bottom: 8px;">
+      <strong style="color: #0d9488;">USER INFO</strong>
+      <div id="user-info">Loading...</div>
+    </div>
+    <div style="margin-bottom: 8px;">
+      <strong style="color: #0d9488;">CURRENT PAGE</strong>
+      <div>{currentPage}</div>
+    </div>
+    <div>
+      <button id="logout-btn" style="background: #ef4444; border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function updateAccessInfo() {
+    const userInfo = document.getElementById('user-info');
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      try {
+        const userData = JSON.parse(token);
+        userInfo.innerHTML = `
+          Email: ${userData.email}<br/>
+          Role: <span style="color: #0d9488;">${userData.role.toUpperCase()}</span>
+        `;
+      } catch (e) {
+        userInfo.innerHTML = 'Invalid session';
+      }
+    } else {
+      userInfo.innerHTML = 'Not authenticated';
+    }
+  }
+
+  // Update on load
+  updateAccessInfo();
+
+  // Update on storage change
+  window.addEventListener('storage', updateAccessInfo);
+
+  // Logout button
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = '/login';
+  });
+</script>
+
+<style>
+  :global(body.dark-mode) #access-checker > div {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+  }
+
+  :global(:root) #access-checker > div {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #1a202c !important;
+  }
+</style>
