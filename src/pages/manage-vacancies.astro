@@ -1,0 +1,316 @@
+---
+// Página: Gestión de Vacantes - Vista Admin
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import DataTableStaffinity from '../components/DataTableStaffinity.astro';
+
+// Datos simulados - Replace con API call
+const vacancyColumns = [
+  { key: 'id', label: 'ID Vacante', sortable: true },
+  { key: 'title', label: 'Título', sortable: true },
+  { key: 'department', label: 'Departamento', sortable: true },
+  { key: 'applicants', label: 'Candidatos', sortable: false },
+  { key: 'status', label: 'Estado', sortable: true },
+  { key: 'posted', label: 'Publicado', sortable: true },
+];
+
+const vacancyRows = [
+  {
+    id: 'VAC-001',
+    title: 'Backend Developer .NET',
+    department: 'Engineering',
+    applicants: '12',
+    status: '✓ Abierta',
+    posted: '2025-12-01',
+  },
+  {
+    id: 'VAC-002',
+    title: 'Backend Developer Java',
+    department: 'Engineering',
+    applicants: '8',
+    status: '✓ Abierta',
+    posted: '2025-12-05',
+  },
+  {
+    id: 'VAC-003',
+    title: 'Frontend Developer Next.js',
+    department: 'Engineering',
+    applicants: '15',
+    status: '⏱ En Revisión',
+    posted: '2025-12-03',
+  },
+  {
+    id: 'VAC-004',
+    title: 'HR Manager',
+    department: 'HR',
+    applicants: '5',
+    status: '✓ Abierta',
+    posted: '2025-11-28',
+  },
+  {
+    id: 'VAC-005',
+    title: 'Senior DevOps Engineer',
+    department: 'Engineering',
+    applicants: '0',
+    status: '✗ Cerrada',
+    posted: '2025-11-15',
+  },
+];
+
+const vacancyActions = [
+  { label: 'Ver Candidatos', variant: 'primary' as const },
+  { label: 'Editar', variant: 'secondary' as const },
+  { label: 'Cerrar', variant: 'danger' as const },
+];
+---
+
+<DashboardLayout title="Gestión de Vacantes - HexaLink ERP">
+  <style>
+    .vacancies-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .vacancies-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .vacancies-header h1 {
+      color: #f1f5f9;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-new {
+      background: #0d9488;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-new:hover {
+      background: #0e7490;
+      transform: translateY(-2px);
+    }
+
+    .search-bar {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-input {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+
+    .search-input::placeholder {
+      color: #64748b;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-label {
+      color: #94a3b8;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .filter-select {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      color: #0d9488;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+      .vacancies-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .btn-new,
+      .search-input {
+        width: 100%;
+      }
+
+      .search-bar {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .filters {
+        flex-direction: column;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="vacancies-container">
+    <!-- Header -->
+    <div class="vacancies-header">
+      <h1>Gestión de Vacantes</h1>
+      <div class="header-actions">
+        <button class="btn-new">+ Nueva Vacante</button>
+        <div class="search-bar">
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Buscar vacante por título o departamento..."
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Abiertas</div>
+        <div class="stat-value">4</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">En Revisión</div>
+        <div class="stat-value">1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Candidatos</div>
+        <div class="stat-value">40</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Cerradas</div>
+        <div class="stat-value">1</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label class="filter-label">Departamento</label>
+        <select class="filter-select">
+          <option value="">Todos</option>
+          <option value="engineering">Engineering</option>
+          <option value="hr">HR</option>
+          <option value="marketing">Marketing</option>
+          <option value="finance">Finance</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Estado</label>
+        <select class="filter-select">
+          <option value="">Todos</option>
+          <option value="open">Abierta</option>
+          <option value="review">En Revisión</option>
+          <option value="closed">Cerrada</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <DataTableStaffinity 
+      title="Listado de Vacantes"
+      columns={vacancyColumns}
+      rows={vacancyRows}
+      actions={vacancyActions}
+    />
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.querySelector('.btn-new')?.addEventListener('click', () => {
+      alert('Modal de nueva vacante (a implementar)');
+    });
+  </script>
+</DashboardLayout>

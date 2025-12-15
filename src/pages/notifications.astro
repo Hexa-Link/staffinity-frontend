@@ -1,0 +1,633 @@
+---
+// Página: Notificaciones y Logs
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Notificaciones y Logs - HexaLink ERP">
+  <style>
+    .notifications-page {
+      background: #0f172a;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .notifications-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      color: #f1f5f9;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #334155;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .tab-btn:hover {
+      color: #0d9488;
+    }
+
+    .tab-btn.active {
+      color: #0d9488;
+      border-bottom-color: #0d9488;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .filters-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-select {
+      padding: 0.75rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: #0d9488;
+      background: #1e293b;
+    }
+
+    /* Notifications Tab */
+    .notifications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .notification-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+
+    .notification-item:hover {
+      border-color: #0d9488;
+      background: #263549;
+    }
+
+    .notification-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .notification-icon.info {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .notification-icon.success {
+      background: #22c55e;
+      color: white;
+    }
+
+    .notification-icon.warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .notification-icon.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      color: #f1f5f9;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-description {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-time {
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .notification-badge {
+      background: #0d9488;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .notification-badge.critical {
+      background: #ef4444;
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    .btn-primary {
+      background: #0d9488;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0e7490;
+    }
+
+    /* Logs Tab */
+    .logs-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .logs-table thead {
+      background: linear-gradient(90deg, #0d9488 0%, #0e7490 100%);
+    }
+
+    .logs-table th {
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid #334155;
+    }
+
+    .logs-table td {
+      color: #cbd5e1;
+      padding: 1rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    .logs-table tbody tr:hover {
+      background: #263549;
+    }
+
+    .log-user {
+      color: #0d9488;
+      font-weight: 600;
+    }
+
+    .log-action {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .log-status {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .log-status.success {
+      background: #22c55e;
+      color: white;
+    }
+
+    .log-status.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    .log-status.warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .log-status.info {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .log-timestamp {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #cbd5e1;
+    }
+
+    .empty-state h3 {
+      color: #f1f5f9;
+      margin-bottom: 1rem;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .pagination button {
+      padding: 0.5rem 1rem;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .pagination button:hover,
+    .pagination button.active {
+      background: #0d9488;
+      border-color: #0d9488;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .filters-bar {
+        flex-direction: column;
+      }
+
+      .notification-item {
+        flex-direction: column;
+      }
+
+      .logs-table {
+        font-size: 0.85rem;
+      }
+
+      .logs-table th,
+      .logs-table td {
+        padding: 0.75rem;
+      }
+    }
+  </style>
+
+  <div class="notifications-page">
+    <div class="notifications-container">
+      <h1 class="page-title">Notificaciones y Logs del Sistema</h1>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="notifications">
+          🔔 Notificaciones (5)
+        </button>
+        <button class="tab-btn" data-tab="logs">
+          📋 Registros de Actividad
+        </button>
+      </div>
+
+      <!-- Notifications Tab -->
+      <div class="tab-content active" id="notifications">
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label style="color: #cbd5e1;">Filtrar por:</label>
+            <select class="filter-select">
+              <option value="">Todos los tipos</option>
+              <option value="info">Información</option>
+              <option value="warning">Advertencia</option>
+              <option value="error">Error</option>
+              <option value="success">Éxito</option>
+            </select>
+          </div>
+
+          <div class="filter-group" style="margin-left: auto;">
+            <button class="btn-small btn-secondary">Marcar como leído</button>
+            <button class="btn-small btn-secondary">Limpiar</button>
+          </div>
+        </div>
+
+        <div class="notifications-list">
+          <!-- Notification 1 -->
+          <div class="notification-item">
+            <div class="notification-icon error">⚠️</div>
+            <div class="notification-content" style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                  <div class="notification-title">Error crítico en procesamiento de nómina</div>
+                  <div class="notification-description">
+                    El proceso de generación de nómina se detuvo. Se requiere revisión inmediata.
+                  </div>
+                  <div class="notification-time">Hace 5 minutos</div>
+                </div>
+                <span class="notification-badge critical">CRÍTICO</span>
+              </div>
+              <div class="notification-actions">
+                <button class="btn-small btn-primary">Ver detalles</button>
+                <button class="btn-small btn-secondary">Descartar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification 2 -->
+          <div class="notification-item">
+            <div class="notification-icon success">✓</div>
+            <div class="notification-content" style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                  <div class="notification-title">Importación de empleados completada</div>
+                  <div class="notification-description">
+                    Se importaron correctamente 50 empleados del archivo CSV. No se encontraron errores.
+                  </div>
+                  <div class="notification-time">Hace 1 hora</div>
+                </div>
+              </div>
+              <div class="notification-actions">
+                <button class="btn-small btn-secondary">Descartar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification 3 -->
+          <div class="notification-item">
+            <div class="notification-icon warning">⚡</div>
+            <div class="notification-content" style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                  <div class="notification-title">Uso de almacenamiento al 85%</div>
+                  <div class="notification-description">
+                    El almacenamiento del servidor ha alcanzado el 85% de su capacidad. Considera hacer una limpieza.
+                  </div>
+                  <div class="notification-time">Hace 2 horas</div>
+                </div>
+              </div>
+              <div class="notification-actions">
+                <button class="btn-small btn-primary">Gestionar almacenamiento</button>
+                <button class="btn-small btn-secondary">Descartar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification 4 -->
+          <div class="notification-item">
+            <div class="notification-icon info">ℹ️</div>
+            <div class="notification-content" style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                  <div class="notification-title">Nueva solicitud de vacaciones pendiente</div>
+                  <div class="notification-description">
+                    Carlos Mendez (EMP-012) solicita 5 días de vacaciones del 15-19 de julio. Requiere aprobación.
+                  </div>
+                  <div class="notification-time">Hace 3 horas</div>
+                </div>
+              </div>
+              <div class="notification-actions">
+                <button class="btn-small btn-primary">Revisar solicitud</button>
+                <button class="btn-small btn-secondary">Descartar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification 5 -->
+          <div class="notification-item">
+            <div class="notification-icon success">✓</div>
+            <div class="notification-content" style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                  <div class="notification-title">Backup del sistema completado</div>
+                  <div class="notification-description">
+                    Se realizó correctamente el backup diario del 10 de julio. Tamaño: 15.2 GB
+                  </div>
+                  <div class="notification-time">Ayer a las 2:30 AM</div>
+                </div>
+              </div>
+              <div class="notification-actions">
+                <button class="btn-small btn-secondary">Descartar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <button>← Anterior</button>
+          <button class="active">1</button>
+          <button>2</button>
+          <button>Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- Logs Tab -->
+      <div class="tab-content" id="logs">
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label style="color: #cbd5e1;">Usuario:</label>
+            <select class="filter-select">
+              <option value="">Todos los usuarios</option>
+              <option value="admin">Admin</option>
+              <option value="hr">HR Manager</option>
+              <option value="employee">Empleados</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label style="color: #cbd5e1;">Acción:</label>
+            <select class="filter-select">
+              <option value="">Todas las acciones</option>
+              <option value="create">Crear</option>
+              <option value="update">Actualizar</option>
+              <option value="delete">Eliminar</option>
+              <option value="login">Iniciar sesión</option>
+              <option value="export">Exportar</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label style="color: #cbd5e1;">Estado:</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="success">Exitoso</option>
+              <option value="error">Error</option>
+              <option value="warning">Advertencia</option>
+            </select>
+          </div>
+        </div>
+
+        <table class="logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Usuario</th>
+              <th>Acción</th>
+              <th>Recurso</th>
+              <th>IP</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:35:22</td>
+              <td class="log-user">admin@hexalink.com</td>
+              <td class="log-action">Crear empleado</td>
+              <td>Empleados</td>
+              <td>192.168.1.100</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:32:15</td>
+              <td class="log-user">hr@hexalink.com</td>
+              <td class="log-action">Actualizar vacaciones</td>
+              <td>Vacaciones</td>
+              <td>192.168.1.101</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:28:40</td>
+              <td class="log-user">admin@hexalink.com</td>
+              <td class="log-action">Exportar nómina</td>
+              <td>Nómina</td>
+              <td>192.168.1.100</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:25:33</td>
+              <td class="log-user">unknown</td>
+              <td class="log-action">Intento de acceso</td>
+              <td>Sistema</td>
+              <td>203.0.113.45</td>
+              <td><span class="log-status error">BLOQUEADO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:20:10</td>
+              <td class="log-user">carlos@hexalink.com</td>
+              <td class="log-action">Iniciar sesión</td>
+              <td>Sistema</td>
+              <td>192.168.1.102</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:15:45</td>
+              <td class="log-user">hr@hexalink.com</td>
+              <td class="log-action">Eliminar vacancia</td>
+              <td>Vacantes</td>
+              <td>192.168.1.101</td>
+              <td><span class="log-status warning">ADVERTENCIA</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:10:20</td>
+              <td class="log-user">admin@hexalink.com</td>
+              <td class="log-action">Crear vacancia</td>
+              <td>Vacantes</td>
+              <td>192.168.1.100</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+            <tr>
+              <td class="log-timestamp">2024-07-10 14:05:15</td>
+              <td class="log-user">maria@hexalink.com</td>
+              <td class="log-action">Solicitar vacaciones</td>
+              <td>Vacaciones</td>
+              <td>192.168.1.103</td>
+              <td><span class="log-status success">ÉXITO</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <button>← Anterior</button>
+          <button class="active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>Siguiente →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = (btn as HTMLElement).dataset?.tab;
+        
+        // Remove active class from all tabs and content
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding content
+        btn.classList.add('active');
+        if (tab) {
+          document.getElementById(tab)?.classList.add('active');
+        }
+      });
+    });
+  </script>
+</DashboardLayout>
