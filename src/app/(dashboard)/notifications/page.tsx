@@ -20,16 +20,12 @@ interface Notification {
   createdAt: string
 }
 
-const mockNotifications: Notification[] = [
-  { id: 1, title: 'Nuevo empleado registrado', message: 'Juan Pérez ha sido agregado al sistema.', type: 'success', read: false, createdAt: '2024-01-15T10:30:00' },
-  { id: 2, title: 'Vacante actualizada', message: 'La vacante "Backend Developer .NET" ha recibido 5 nuevas aplicaciones.', type: 'info', read: false, createdAt: '2024-01-15T09:15:00' },
-  { id: 3, title: 'Stock bajo', message: 'El item "Silla Ergonómica" tiene stock bajo (3 unidades).', type: 'warning', read: true, createdAt: '2024-01-14T16:45:00' },
-  { id: 4, title: 'Error de sincronización', message: 'No se pudo sincronizar la información con el servidor externo.', type: 'error', read: true, createdAt: '2024-01-14T14:20:00' },
-  { id: 5, title: 'Reporte generado', message: 'El reporte mensual de empleados está listo para descargar.', type: 'success', read: true, createdAt: '2024-01-13T11:00:00' },
-]
+
+
+import { useNotifications } from '@/context/NotificationContext'
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications)
+  const { notifications } = useNotifications()
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
 
   const getTypeStyles = (type: Notification['type']) => {
@@ -47,12 +43,13 @@ export default function NotificationsPage() {
     }
   }
 
+  // TODO: Implement markAsRead in NotificationContext or API
   const markAsRead = (id: number) => {
-    setNotifications(notifications.map((n) => (n.id === id ? { ...n, read: true } : n)))
+    console.log('Mark as read', id)
   }
 
   const markAllAsRead = () => {
-    setNotifications(notifications.map((n) => ({ ...n, read: true })))
+    console.log('Mark all as read')
   }
 
   const filteredNotifications = filter === 'unread' 

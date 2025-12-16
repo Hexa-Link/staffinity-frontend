@@ -20,25 +20,36 @@ interface Employee {
   status: 'activo' | 'inactivo'
 }
 
-const mockEmployees: Employee[] = [
-  { id: 1, name: 'Juan Pérez', email: 'juan@hexalink.com', department: 'Desarrollo', position: 'Senior Developer', status: 'activo' },
-  { id: 2, name: 'María García', email: 'maria@hexalink.com', department: 'Diseño', position: 'UX Designer', status: 'activo' },
-  { id: 3, name: 'Carlos López', email: 'carlos@hexalink.com', department: 'Marketing', position: 'Marketing Manager', status: 'activo' },
-  { id: 4, name: 'Ana Martínez', email: 'ana@hexalink.com', department: 'RRHH', position: 'HR Specialist', status: 'inactivo' },
-  { id: 5, name: 'Pedro Sánchez', email: 'pedro@hexalink.com', department: 'Desarrollo', position: 'Junior Developer', status: 'activo' },
-]
+import { useUsers, useCreateUser } from '@/hooks/useUsers'
+import { useFileUpload } from '@/hooks/useFileUpload'
+import { UserDto } from '@/api/generated'
 
 export default function EmployeesPage() {
-  const [employees] = useState<Employee[]>(mockEmployees)
   const [searchTerm, setSearchTerm] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const { data: usersData, isLoading } = useUsers(1, 20, searchTerm)
+  const { mutate: createUser, isPending: isCreating } = useCreateUser()
+  const { uploadFile, isUploading } = useFileUpload()
+  
+  // Form state
+  const [newUser, setNewUser] = useState<UserDto>({
+    email: '',
+    firstName: '',
+    lastName: '',
+    roles: ['User']
+  })
 
-  const filteredEmployees = employees.filter(
-    (emp) =>
-      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.department.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const handleCreate = (e: React.FormEvent) => {
+    e.preventDefault()
+    createUser(newUser, {
+      onSuccess: () => {
+        setShowModal(false)
+        setNewUser({ email: '', firstName: '', lastName: '', roles: ['User'] })
+      }
+    })
+  }
+
+  const employees = usersData?.items || []
 
   return (
     <div className="space-y-8">
@@ -104,41 +115,55 @@ export default function EmployeesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-teal-50 dark:divide-slate-700">
-              {filteredEmployees.map((employee) => (
+              {isLoading ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-4 text-center">Cargando...</td>
+                </tr>
+              ) : employees.map((employee) => (
                 <tr key={employee.id} className="hover:bg-teal-50/50 dark:hover:bg-slate-700/50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="w-10 h-10 bg-gradient-to-br from-teal-200 to-teal-400 rounded-full flex items-center justify-center mr-4 shadow-md">
                         <span className="text-teal-800 font-bold">
-                          {employee.name.charAt(0)}
+                          {employee.firstName?.[0]}
                         </span>
                       </div>
-                      <span className="font-semibold text-gray-900 dark:text-white">{employee.name}</span>
+                      <span className="font-semibold text-gray-900 dark:text-white">{employee.firstName} {employee.lastName}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-300">
                     {employee.email}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                    {employee.department}
+                    - {/* Department not in UserDto yet */}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                    {employee.position}
+                    - {/* Position not in UserDto yet */}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
-                      className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                        employee.status === 'activo'
-                          ? 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400'
-                          : 'bg-gray-100 text-gray-600 dark:bg-slate-600 dark:text-gray-300'
-                      }`}
+                      className={`px-3 py-1 text-xs font-semibold rounded-full bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400`}
                     >
-                      {employee.status}
+                      Activo
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right space-x-2">
-                    <button className="text-teal-600 hover:text-teal-800 font-medium transition-colors">Editar</button>
-                    <button className="text-red-500 hover:text-red-700 font-medium transition-colors">Eliminar</button>
+                    <button 
+                      onClick={() => alert('Funcionalidad de editar próximamente')}
+                      className="text-teal-600 hover:text-teal-800 font-medium transition-colors"
+                    >
+                      Editar
+                    </button>
+                    <button 
+                      onClick={() => {
+                        if(confirm('¿Estás seguro de eliminar este empleado?')) {
+                          alert('Funcionalidad de eliminar próximamente')
+                        }
+                      }}
+                      className="text-red-500 hover:text-red-700 font-medium transition-colors"
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -152,37 +177,71 @@ export default function EmployeesPage() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full mx-4 p-8 shadow-2xl border border-teal-100 dark:border-slate-700">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Nuevo Empleado</h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleCreate}>
               <div>
                 <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Nombre</label>
-                <input type="text" className="input-field" placeholder="Nombre completo" />
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  placeholder="Nombre" 
+                  value={newUser.firstName}
+                  onChange={e => setNewUser({...newUser, firstName: e.target.value})}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Apellidos</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  placeholder="Apellidos" 
+                  value={newUser.lastName}
+                  onChange={e => setNewUser({...newUser, lastName: e.target.value})}
+                  required
+                />
               </div>
               <div>
                 <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Email</label>
-                <input type="email" className="input-field" placeholder="email@hexalink.com" />
+                <input 
+                  type="email" 
+                  className="input-field" 
+                  placeholder="email@hexalink.com" 
+                  value={newUser.email}
+                  onChange={e => setNewUser({...newUser, email: e.target.value})}
+                  required
+                />
+              </div>
+              
+              <div className="flex gap-4 mt-8">
+                <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-3 px-6 border-2 border-teal-600 text-teal-600 font-semibold rounded-full hover:bg-teal-50 transition-colors">
+                  Cancelar
+                </button>
+                <button type="submit" disabled={isCreating} className="flex-1 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg shadow-teal-500/30 hover:-translate-y-0.5 transition-all disabled:opacity-50">
+                  {isCreating ? 'Guardando...' : 'Guardar'}
+                </button>
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Departamento</label>
-                <select className="input-field">
-                  <option>Desarrollo</option>
-                  <option>Diseño</option>
-                  <option>Marketing</option>
-                  <option>RRHH</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Posición</label>
-                <input type="text" className="input-field" placeholder="Cargo" />
+                <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Avatar</label>
+                <input 
+                  type="file" 
+                  className="input-field" 
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                      try {
+                        const key = await uploadFile(file)
+                        setNewUser({...newUser, avatarUrl: key})
+                        console.log('File uploaded, key:', key)
+                      } catch (err) {
+                        console.error(err)
+                        alert('Error al subir la imagen. Por favor intenta de nuevo.')
+                      }
+                    }
+                  }}
+                />
               </div>
             </form>
-            <div className="flex gap-4 mt-8">
-              <button onClick={() => setShowModal(false)} className="flex-1 py-3 px-6 border-2 border-teal-600 text-teal-600 font-semibold rounded-full hover:bg-teal-50 transition-colors">
-                Cancelar
-              </button>
-              <button className="flex-1 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg shadow-teal-500/30 hover:-translate-y-0.5 transition-all">
-                Guardar
-              </button>
-            </div>
           </div>
         </div>
       )}

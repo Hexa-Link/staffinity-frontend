@@ -12,31 +12,29 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useLogin } from '@/hooks/useLogin'
 
 export default function LoginPage() {
   const router = useRouter()
   const [formData, setFormData] = useState({ email: '', password: '' })
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const { mutate: login, isPending } = useLogin()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
     setError('')
 
-    try {
-      // TODO: Implementar autenticación real con API
-      console.log('Login:', formData)
-      
-      // Simular login exitoso
-      setTimeout(() => {
-        router.push('/dashboard')
-      }, 1000)
-    } catch {
-      setError('Error al iniciar sesión. Verifica tus credenciales.')
-    } finally {
-      setLoading(false)
-    }
+    login(
+      { email: formData.email, password: formData.password },
+      {
+        onSuccess: () => {
+          router.push('/dashboard')
+        },
+        onError: () => {
+          setError('Error al iniciar sesión. Verifica tus credenciales.')
+        },
+      }
+    )
   }
 
   return (
@@ -123,10 +121,10 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isPending}
               className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-lg shadow-teal-500/30 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             >
-              {loading ? 'Ingresando...' : 'Iniciar Sesión'}
+              {isPending ? 'Ingresando...' : 'Iniciar Sesión'}
             </button>
           </form>
 

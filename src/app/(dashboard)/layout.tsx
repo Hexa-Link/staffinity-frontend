@@ -10,8 +10,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import ChatBot from '@/components/ChatBot'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: '📊' },
@@ -27,7 +29,25 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const { user, isAuthenticated, isLoading, logout } = useAuth()
   const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/login')
+    }
+  }, [isLoading, isAuthenticated, router])
+
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Cargando...</div>
+  }
+
+  if (!isAuthenticated) {
+    return null // Will redirect
+  }
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
@@ -36,14 +56,28 @@ export default function DashboardLayout({
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-slate-900' : 'bg-gradient-to-br from-teal-50 via-white to-white'}`}>
-      {/* Sidebar - Hidden on mobile */}
-      <aside className={`fixed hidden md:flex inset-y-0 left-0 w-64 flex-col ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-teal-100'} border-r shadow-lg z-50`}>
+      {/* Mobile Sidebar Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`fixed inset-y-0 left-0 w-64 flex-col ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-teal-100'} border-r shadow-lg z-50 transition-transform duration-300 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className={`flex items-center h-20 px-6 ${darkMode ? 'border-slate-700' : 'border-teal-100'} border-b`}>
+          <div className={`flex items-center justify-between h-20 px-6 ${darkMode ? 'border-slate-700' : 'border-teal-100'} border-b`}>
             <Link href="/" className="text-2xl font-bold text-teal-600">
               HexaLink
             </Link>
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="md:hidden text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
           </div>
 
           {/* Navigation */}
@@ -54,6 +88,7 @@ export default function DashboardLayout({
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center px-4 py-3 rounded-xl transition-all duration-300 ${
                     isActive
                       ? 'bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-500/30'
@@ -73,13 +108,20 @@ export default function DashboardLayout({
           <div className={`p-4 ${darkMode ? 'border-slate-700' : 'border-teal-100'} border-t`}>
             <div className="flex items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-teal-200 to-teal-400 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-teal-800 font-bold text-lg">U</span>
+                <span className="text-teal-800 font-bold text-lg">
+                  {user?.firstName?.[0] || 'U'}{user?.lastName?.[0] || ''}
+                </span>
               </div>
               <div className="ml-3">
-                <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Usuario</p>
-                <Link href="/" className="text-xs text-teal-600 hover:text-teal-700 font-medium">
+                <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {user?.firstName} {user?.lastName}
+                </p>
+                <button 
+                  onClick={logout}
+                  className="text-xs text-teal-600 hover:text-teal-700 font-medium"
+                >
                   Cerrar sesión
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -90,13 +132,21 @@ export default function DashboardLayout({
       <main className="md:ml-64 min-h-screen">
         {/* Top Bar */}
         <header className={`h-16 md:h-20 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white/80 backdrop-blur-lg border-teal-100'} border-b flex items-center justify-between px-4 md:px-8 sticky top-0 z-40`}>
-          <div className="min-w-0 flex-1">
-            <h1 className={`text-lg md:text-2xl font-bold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              {navItems.find((item) => item.href === pathname)?.label || 'Dashboard'}
-            </h1>
-            <p className={`text-xs md:text-sm hidden sm:block ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-              Bienvenido al panel de HexaLink
-            </p>
+          <div className="flex items-center gap-4 min-w-0 flex-1">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            >
+              ☰
+            </button>
+            <div className="min-w-0">
+              <h1 className={`text-lg md:text-2xl font-bold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                {navItems.find((item) => item.href === pathname)?.label || 'Dashboard'}
+              </h1>
+              <p className={`text-xs md:text-sm hidden sm:block ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                Bienvenido al panel de HexaLink
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
             <button
@@ -117,6 +167,7 @@ export default function DashboardLayout({
 
         {/* Page Content */}
         <div className="p-4 md:p-8">{children}</div>
+        <ChatBot />
       </main>
     </div>
   )

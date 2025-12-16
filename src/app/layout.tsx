@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import ChatBot from '@/components/ChatBot'
+import QueryProvider from '@/providers/QueryProvider'
+import { AuthProvider } from '@/context/AuthContext'
+import { NotificationProvider } from '@/context/NotificationContext'
 
 export const metadata: Metadata = {
   title: 'Staffinity - Sistema de Gestión de Recursos Humanos',
@@ -15,8 +17,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="min-h-screen bg-gray-50 antialiased">
-        {children}
-        <ChatBot />
+        <QueryProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              {children}
+            </NotificationProvider>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   )

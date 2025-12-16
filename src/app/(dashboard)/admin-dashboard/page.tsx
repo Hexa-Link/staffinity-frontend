@@ -10,6 +10,8 @@
 
 'use client'
 
+import { useOrganizations } from '@/hooks/useOrganizations'
+
 const adminStats = [
   { label: 'Usuarios del Sistema', value: '45', icon: '👤', color: 'from-teal-400 to-teal-600' },
   { label: 'Roles Activos', value: '5', icon: '🔐', color: 'from-emerald-400 to-emerald-600' },
@@ -26,6 +28,7 @@ const systemModules = [
 ]
 
 export default function AdminDashboardPage() {
+  const { data: organizations } = useOrganizations()
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -84,7 +87,7 @@ export default function AdminDashboardPage() {
               </label>
               <input
                 type="text"
-                defaultValue="HexaLink S.A.S."
+                defaultValue={organizations?.[0]?.name || "HexaLink S.A.S."}
                 className="input-field"
               />
             </div>
