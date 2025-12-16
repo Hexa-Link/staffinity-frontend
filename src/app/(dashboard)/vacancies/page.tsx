@@ -52,7 +52,6 @@ export default function VacanciesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Vacantes</h1>
           <p className="text-gray-500 dark:text-gray-400">Gestiona las ofertas de trabajo de HexaLink</p>
         </div>
         <button onClick={() => setShowModal(true)} className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 shadow-lg shadow-teal-500/30 hover:-translate-y-0.5">

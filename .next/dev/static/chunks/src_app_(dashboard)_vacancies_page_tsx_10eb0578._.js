@@ -2,7 +2,14 @@
 "[project]/src/app/(dashboard)/vacancies/page.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-__turbopack_context__.s([
+/**
+ * 🎯 VACANTES - Gestión de Puestos
+ * Ruta: /vacancies
+ * Descripción: Sistema de gestión de vacantes y ofertas de empleo.
+ * Funcionalidades: Crear vacantes, publicar ofertas, gestionar
+ * candidatos, cambiar estados (Urgente, Nuevo, En Proceso).
+ * Módulo: Reclutamiento y Selección
+ */ __turbopack_context__.s([
     "default",
     ()=>VacanciesPage
 ]);
@@ -79,27 +86,17 @@ function VacanciesPage() {
                 className: "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-bold text-gray-900 dark:text-white",
-                                children: "Vacantes"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 46,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-500 dark:text-gray-400",
-                                children: "Gestiona las ofertas de trabajo de HexaLink"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 47,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-500 dark:text-gray-400",
+                            children: "Gestiona las ofertas de trabajo de HexaLink"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                            lineNumber: 55,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                        lineNumber: 45,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -108,13 +105,13 @@ function VacanciesPage() {
                         children: "+ Nueva Vacante"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                        lineNumber: 49,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                lineNumber: 44,
+                lineNumber: 53,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -128,62 +125,12 @@ function VacanciesPage() {
                                 children: "4"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 57,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
-                                children: "Total Vacantes"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 58,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                        lineNumber: 56,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-teal-100 dark:border-slate-700 text-center",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-3xl font-bold text-emerald-600",
-                                children: "3"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 61,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
-                                children: "Activas"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 62,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                        lineNumber: 60,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-teal-100 dark:border-slate-700 text-center",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-3xl font-bold text-amber-600",
-                                children: "1"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                 lineNumber: 65,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
-                                children: "Pausadas"
+                                children: "Total Vacantes"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                 lineNumber: 66,
@@ -199,8 +146,8 @@ function VacanciesPage() {
                         className: "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-teal-100 dark:border-slate-700 text-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-3xl font-bold text-cyan-600",
-                                children: "89"
+                                className: "text-3xl font-bold text-emerald-600",
+                                children: "3"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                 lineNumber: 69,
@@ -208,7 +155,7 @@ function VacanciesPage() {
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
-                                children: "Aplicantes"
+                                children: "Activas"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                 lineNumber: 70,
@@ -219,11 +166,61 @@ function VacanciesPage() {
                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                         lineNumber: 68,
                         columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-teal-100 dark:border-slate-700 text-center",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-3xl font-bold text-amber-600",
+                                children: "1"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                lineNumber: 73,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
+                                children: "Pausadas"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                lineNumber: 74,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                        lineNumber: 72,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-teal-100 dark:border-slate-700 text-center",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-3xl font-bold text-cyan-600",
+                                children: "89"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                lineNumber: 77,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-500 dark:text-gray-400 font-medium",
+                                children: "Aplicantes"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                lineNumber: 78,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                        lineNumber: 76,
+                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                lineNumber: 55,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -236,7 +233,7 @@ function VacanciesPage() {
                                 children: vacancy.badge
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 79,
+                                lineNumber: 87,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -244,7 +241,7 @@ function VacanciesPage() {
                                 children: vacancy.title
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 83,
+                                lineNumber: 91,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -252,7 +249,7 @@ function VacanciesPage() {
                                 children: vacancy.department
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 84,
+                                lineNumber: 92,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,7 +263,7 @@ function VacanciesPage() {
                                                 children: "📍"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 88,
+                                                lineNumber: 96,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -275,79 +272,11 @@ function VacanciesPage() {
                                                         children: "Ubicación:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                        lineNumber: 89,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    " ",
-                                                    vacancy.location
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 89,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                        lineNumber: 87,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center text-gray-600 dark:text-gray-300",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "mr-2",
-                                                children: "⏰"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 92,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Tipo:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                        lineNumber: 93,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    " ",
-                                                    vacancy.type
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 93,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                        lineNumber: 91,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center text-gray-600 dark:text-gray-300",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "mr-2",
-                                                children: "👥"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 96,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Aplicantes:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                                         lineNumber: 97,
                                                         columnNumber: 23
                                                     }, this),
                                                     " ",
-                                                    vacancy.applicants
+                                                    vacancy.location
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
@@ -359,11 +288,79 @@ function VacanciesPage() {
                                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
                                         lineNumber: 95,
                                         columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center text-gray-600 dark:text-gray-300",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "mr-2",
+                                                children: "⏰"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                lineNumber: 100,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Tipo:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                        lineNumber: 101,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    " ",
+                                                    vacancy.type
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                lineNumber: 101,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                        lineNumber: 99,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center text-gray-600 dark:text-gray-300",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "mr-2",
+                                                children: "👥"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                lineNumber: 104,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Aplicantes:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                        lineNumber: 105,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    " ",
+                                                    vacancy.applicants
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                                lineNumber: 105,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
+                                        lineNumber: 103,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 86,
+                                lineNumber: 94,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -377,7 +374,7 @@ function VacanciesPage() {
                                                 children: vacancy.status
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 103,
+                                                lineNumber: 111,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -385,13 +382,13 @@ function VacanciesPage() {
                                                 children: new Date(vacancy.createdAt).toLocaleDateString('es-MX')
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 106,
+                                                lineNumber: 114,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 110,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -402,7 +399,7 @@ function VacanciesPage() {
                                                 children: "Ver detalles"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 111,
+                                                lineNumber: 119,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -410,30 +407,30 @@ function VacanciesPage() {
                                                 children: "Editar"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 120,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                        lineNumber: 110,
+                                        lineNumber: 118,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                lineNumber: 101,
+                                lineNumber: 109,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, vacancy.id, true, {
                         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                        lineNumber: 77,
+                        lineNumber: 85,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                lineNumber: 75,
+                lineNumber: 83,
                 columnNumber: 7
             }, this),
             showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -446,7 +443,7 @@ function VacanciesPage() {
                             children: "Nueva Vacante"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                            lineNumber: 123,
+                            lineNumber: 131,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -459,7 +456,7 @@ function VacanciesPage() {
                                             children: "Título"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 126,
+                                            lineNumber: 134,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -468,13 +465,13 @@ function VacanciesPage() {
                                             placeholder: "Ej: Frontend Developer"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 135,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 133,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -484,7 +481,7 @@ function VacanciesPage() {
                                             children: "Departamento"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 130,
+                                            lineNumber: 138,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -494,40 +491,40 @@ function VacanciesPage() {
                                                     children: "Engineering"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 140,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     children: "Diseño"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                    lineNumber: 133,
+                                                    lineNumber: 141,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     children: "Marketing"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                    lineNumber: 134,
+                                                    lineNumber: 142,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     children: "RRHH"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                                    lineNumber: 135,
+                                                    lineNumber: 143,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 131,
+                                            lineNumber: 139,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 129,
+                                    lineNumber: 137,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -537,7 +534,7 @@ function VacanciesPage() {
                                             children: "Ubicación"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 147,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -546,13 +543,13 @@ function VacanciesPage() {
                                             placeholder: "Ej: Remoto / Híbrido"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 140,
+                                            lineNumber: 148,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 138,
+                                    lineNumber: 146,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -562,7 +559,7 @@ function VacanciesPage() {
                                             children: "Descripción"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 143,
+                                            lineNumber: 151,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -570,19 +567,19 @@ function VacanciesPage() {
                                             placeholder: "Describe la vacante..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                            lineNumber: 144,
+                                            lineNumber: 152,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 150,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                            lineNumber: 124,
+                            lineNumber: 132,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -594,7 +591,7 @@ function VacanciesPage() {
                                     children: "Cancelar"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 148,
+                                    lineNumber: 156,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -602,30 +599,30 @@ function VacanciesPage() {
                                     children: "Publicar"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                                    lineNumber: 151,
+                                    lineNumber: 159,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                            lineNumber: 147,
+                            lineNumber: 155,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                    lineNumber: 122,
+                    lineNumber: 130,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-                lineNumber: 121,
+                lineNumber: 129,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/(dashboard)/vacancies/page.tsx",
-        lineNumber: 42,
+        lineNumber: 51,
         columnNumber: 5
     }, this);
 }

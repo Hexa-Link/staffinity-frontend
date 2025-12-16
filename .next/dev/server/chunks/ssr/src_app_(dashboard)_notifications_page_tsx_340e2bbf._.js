@@ -2,7 +2,14 @@ module.exports = [
 "[project]/src/app/(dashboard)/notifications/page.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-__turbopack_context__.s([
+/**
+ * 🔔 NOTIFICACIONES - Centro de Alertas
+ * Ruta: /notifications
+ * Descripción: Centro de notificaciones del sistema para alertas
+ * y comunicaciones. Tipos: Info, Éxito, Advertencia, Error.
+ * Funcionalidades: Ver notificaciones, marcar como leída, filtrar por tipo.
+ * Módulo: Comunicaciones
+ */ __turbopack_context__.s([
     "default",
     ()=>NotificationsPage
 ]);
@@ -116,27 +123,17 @@ function NotificationsPage() {
                 className: "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-bold text-gray-900 dark:text-white",
-                                children: "Notificaciones"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                lineNumber: 60,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-500 dark:text-gray-400",
-                                children: unreadCount > 0 ? `Tienes ${unreadCount} notificaciones sin leer` : 'Todas las notificaciones leídas'
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                lineNumber: 61,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-500 dark:text-gray-400",
+                            children: unreadCount > 0 ? `Tienes ${unreadCount} notificaciones sin leer` : 'Todas las notificaciones leídas'
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
+                            lineNumber: 69,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                        lineNumber: 59,
+                        lineNumber: 68,
                         columnNumber: 9
                     }, this),
                     unreadCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -145,13 +142,13 @@ function NotificationsPage() {
                         children: "Marcar todas como leídas"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                        lineNumber: 66,
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                lineNumber: 58,
+                lineNumber: 67,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -167,7 +164,7 @@ function NotificationsPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                        lineNumber: 74,
+                        lineNumber: 82,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -180,13 +177,13 @@ function NotificationsPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                        lineNumber: 84,
+                        lineNumber: 92,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                lineNumber: 73,
+                lineNumber: 81,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -199,7 +196,7 @@ function NotificationsPage() {
                             children: "🔔"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                            lineNumber: 100,
+                            lineNumber: 108,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -207,13 +204,13 @@ function NotificationsPage() {
                             children: "No hay notificaciones"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                            lineNumber: 103,
+                            lineNumber: 111,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                    lineNumber: 99,
+                    lineNumber: 107,
                     columnNumber: 11
                 }, this) : filteredNotifications.map((notification)=>{
                     const styles = getTypeStyles(notification.type);
@@ -227,7 +224,7 @@ function NotificationsPage() {
                                     children: styles.icon
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 124,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -241,20 +238,20 @@ function NotificationsPage() {
                                                     children: notification.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                                    lineNumber: 121,
+                                                    lineNumber: 129,
                                                     columnNumber: 23
                                                 }, this),
                                                 !notification.read && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "w-3 h-3 bg-teal-500 rounded-full animate-pulse"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                                    lineNumber: 123,
+                                                    lineNumber: 131,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 128,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -262,7 +259,7 @@ function NotificationsPage() {
                                             children: notification.message
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                            lineNumber: 126,
+                                            lineNumber: 134,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -273,7 +270,7 @@ function NotificationsPage() {
                                                     children: new Date(notification.createdAt).toLocaleString('es-MX')
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 136,
                                                     columnNumber: 23
                                                 }, this),
                                                 !notification.read && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -282,42 +279,42 @@ function NotificationsPage() {
                                                     children: "Marcar como leída"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 140,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 135,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 127,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                            lineNumber: 115,
+                            lineNumber: 123,
                             columnNumber: 17
                         }, this)
                     }, notification.id, false, {
                         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                        lineNumber: 109,
+                        lineNumber: 117,
                         columnNumber: 15
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-                lineNumber: 97,
+                lineNumber: 105,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/(dashboard)/notifications/page.tsx",
-        lineNumber: 56,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }

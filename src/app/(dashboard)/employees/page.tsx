@@ -45,7 +45,6 @@ export default function EmployeesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Empleados</h1>
           <p className="text-gray-500 dark:text-gray-400">Gestiona la información de tu equipo</p>
         </div>
         <button

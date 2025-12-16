@@ -20,7 +20,6 @@ const adminStats = [
 const systemModules = [
   { name: 'Empleados', enabled: true, description: 'Gestión de personal' },
   { name: 'Vacantes', enabled: true, description: 'Publicación de ofertas' },
-  { name: 'Inventario', enabled: true, description: 'Control de activos' },
   { name: 'Reportes', enabled: true, description: 'Generación de informes' },
   { name: 'Nómina', enabled: false, description: 'Cálculo de salarios' },
   { name: 'Capacitación', enabled: false, description: 'Gestión de cursos' },
@@ -31,7 +30,6 @@ export default function AdminDashboardPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Panel de Administración</h1>
         <p className="text-gray-500 dark:text-gray-400">Configura y gestiona el sistema HexaLink</p>
       </div>
 

@@ -94,7 +94,7 @@ function useChat() {
         setMessages
     };
 }
-_s(useChat, "2TAsap/6wAoeMBgWbE+tROAE8ic=");
+_s(useChat, "bRVTsgaY21QlOajuZvBKMm426S8=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

@@ -13,7 +13,6 @@ import Link from 'next/link'
 const stats = [
   { label: 'Total Empleados', value: '156', change: '+12%', icon: '👥', color: 'from-teal-400 to-teal-600' },
   { label: 'Vacantes Activas', value: '8', change: '+3', icon: '🎯', color: 'from-emerald-400 to-emerald-600' },
-  { label: 'Items en Inventario', value: '2,345', change: '-5%', icon: '📦', color: 'from-cyan-400 to-cyan-600' },
   { label: 'Notificaciones', value: '23', change: 'Nuevas', icon: '🔔', color: 'from-teal-300 to-teal-500' },
 ]
 
@@ -64,13 +63,6 @@ export default function DashboardPage() {
             >
               <span className="text-3xl block mb-3 group-hover:scale-110 transition-transform">🎯</span>
               <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Nueva Vacante</span>
-            </Link>
-            <Link
-              href="/inventory"
-              className="p-6 bg-gradient-to-br from-cyan-50 to-cyan-100 dark:from-slate-700 dark:to-slate-600 rounded-2xl hover:shadow-lg hover:shadow-cyan-600/10 hover:-translate-y-1 transition-all duration-300 text-center group"
-            >
-              <span className="text-3xl block mb-3 group-hover:scale-110 transition-transform">📦</span>
-              <span className="text-sm font-semibold text-cyan-700 dark:text-cyan-400">Agregar Item</span>
             </Link>
             <Link
               href="/admin-dashboard"

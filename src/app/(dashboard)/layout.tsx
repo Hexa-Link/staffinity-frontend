@@ -4,7 +4,7 @@
  * Descripción: Layout principal para todas las páginas del dashboard.
  * Componentes: Sidebar navegación, header top, contenedor principal.
  * Funcionalidades: Dark mode, navegación responsive, menú colapsable.
- * Alcance: Se aplica a /dashboard, /employees, /vacancies, /inventory, /notifications, /admin-dashboard
+ * Alcance: Se aplica a /dashboard, /employees, /vacancies, /notifications, /admin-dashboard
  */
 
 'use client'
@@ -17,7 +17,6 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: '📊' },
   { href: '/employees', label: 'Empleados', icon: '👥' },
   { href: '/vacancies', label: 'Vacantes', icon: '🎯' },
-  { href: '/inventory', label: 'Inventario', icon: '📦' },
   { href: '/notifications', label: 'Notificaciones', icon: '🔔' },
   { href: '/admin-dashboard', label: 'Administración', icon: '⚙️' },
 ]
