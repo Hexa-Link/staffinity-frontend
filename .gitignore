@@ -2,6 +2,9 @@
 dist/
 .vite/
 
+# Next.js build output
+.next/
+
 # generated types
 .astro/
 
