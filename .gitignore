@@ -1,10 +1,13 @@
 # build output
 dist/
+.vite/
+
 # generated types
 .astro/
 
 # dependencies
 node_modules/
+node_modules.backup/
 
 # logs
 npm-debug.log*
@@ -12,9 +15,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# test coverage
+coverage/
+.nyc_output/
 
 # environment variables
 .env
+.env.local
+.env.*.local
 .env.production
 
 # macOS-specific files
@@ -22,6 +30,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# VS Code settings
+.vscode/settings.json
 
 # Documentation (not essential code)
 *.txt
