@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AuthApi, UsersApi, ProfilesApi, OrganizationsApi, ProjectsApi, FilesApi, Configuration } from './generated';
 import { getAccessToken, setAccessToken } from './authStore';
 
-const BASE_URL = process.env.NEXT_PUBLIC_PERSONAL_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_PERSONAL_API_URL || "https://staffinity.hexalink.app/api/personal";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

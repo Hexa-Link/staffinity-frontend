@@ -30,7 +30,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     }
 
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_PERSONAL_API_URL}/hubs/notifications`, {
+      .withUrl(`${process.env.NEXT_PUBLIC_PERSONAL_API_URL || 'https://staffinity.hexalink.app/api/personal'}/hubs/notifications`, {
         accessTokenFactory: () => getAccessToken() || '',
       })
       .withAutomaticReconnect()
