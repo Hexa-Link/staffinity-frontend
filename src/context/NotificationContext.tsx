@@ -30,7 +30,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     }
 
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_WS_BASE_URL || 'https://api.example.com'}/hubs/notifications`, {
+      .withUrl(`${process.env.NEXT_PUBLIC_PERSONAL_API_URL}/hubs/notifications`, {
         accessTokenFactory: () => getAccessToken() || '',
       })
       .withAutomaticReconnect()

@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.example.com/api/v1",
+      "url": "https://staffinity.hexalink.app/api/personal",
       "description": "Production Server"
     }
   ],

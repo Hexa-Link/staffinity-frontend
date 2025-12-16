@@ -19,8 +19,7 @@ import type { Configuration } from './configuration';
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 
-export const BASE_PATH = "https://api.example.com/api/v1".replace(/\/+$/, "");
-
+export const BASE_PATH = process.env.NEXT_PUBLIC_PERSONAL_API_URL;
 export const COLLECTION_FORMATS = {
     csv: ",",
     ssv: " ",

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AuthApi, UsersApi, ProfilesApi, OrganizationsApi, ProjectsApi, FilesApi, Configuration } from './generated';
 import { getAccessToken, setAccessToken } from './authStore';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.example.com/api/v1';
+const BASE_URL = process.env.NEXT_PUBLIC_PERSONAL_API_URL;
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
