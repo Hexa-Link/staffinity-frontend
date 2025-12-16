@@ -1,0 +1,13 @@
+[00:00:01.367] Server  LOG      ✓ Ready in 959ms
+[00:00:04.016] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:10.164] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:31.781] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:13.916] Browser LOG     Login: {"email":"juan.perez@hexalink.com","password":"dsadsada"}
+[00:03:21.761] Server  LOG      ✓ Compiled in 147ms
+[00:03:43.378] Server  LOG      ✓ Compiled in 219ms
+[00:05:36.233] Server  LOG      ✓ Compiled in 171ms
+[00:05:55.502] Server  LOG      ✓ Compiled in 149ms
+[00:06:07.499] Server  LOG      ✓ Compiled in 192ms
+[00:06:24.676] Server  LOG      ✓ Compiled in 175ms
+[00:06:30.544] Server  LOG      ✓ Compiled in 157ms
+[00:06:36.593] Server  LOG      ✓ Compiled in 4ms
