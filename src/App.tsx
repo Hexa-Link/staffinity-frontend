@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 
 // Pages
 import Home from './pages/index'
@@ -14,11 +13,6 @@ import Login from './pages/login'
 export default function App() {
   return (
     <Router>
-      <Helmet>
-        <title>Staffinity - ERP System</title>
-        <meta name="description" content="Enterprise Resource Planning System" />
-      </Helmet>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
