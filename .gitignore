@@ -33,10 +33,5 @@ coverage/
 
 # VS Code settings
 .vscode/settings.json
-
-# Documentation (not essential code)
-*.txt
-README.md
-QUICK_START.md
 PROJECT_SUMMARY.md
 API_SPECIFICATION.md
